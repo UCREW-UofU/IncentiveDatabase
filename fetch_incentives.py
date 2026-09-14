@@ -93,12 +93,14 @@ COLUMNS = [
 ]
 
 # Columns shown in the on-page HTML table -- a trimmed subset. Sector (always
-# C&I), Application URL, Last Scraped (shown in the header badge), and Notes are
-# intentionally omitted here; all of them still appear in each program's detail
-# modal, so nothing is lost. "State" and "Program Name" must stay first (the
+# C&I), Application URL, Last Scraped (shown in the header badge), Notes, and the
+# headline dollar figures (Incentive Value, Max Benefit) are intentionally omitted
+# here to keep the table scannable; all of them still appear in each program's
+# detail modal, so nothing is lost. "State" and "Program Name" must stay first (the
 # renderer treats column 0 as the state badge and column 1 as the name button).
 HTML_COLUMNS = [c for c in COLUMNS if c not in (
     "Sector", "Application URL", "Last Scraped", "Notes",
+    "Incentive Value", "Max Benefit",
 )]
 
 # Detail columns stored in SQLite and shown in modal / Excel Details sheet.
@@ -650,7 +652,7 @@ def _write_html(rows):
             tier_badge = ('<span class="tier tier-verified">&#10003; verified'
                           + ((' ' + _esc(verified)) if verified else '') + '</span>')
         else:
-            tier_badge = '<span class="tier tier-general">general &middot; values pending</span>'
+            tier_badge = '<span class="tier tier-general">amount varies &middot; see program</span>'
 
         cells = [
             '<td><span class="badge" style="background:' + color + '">' + _esc(state) + "</span></td>",
@@ -755,10 +757,6 @@ tr.expired td.money { color: #9bb69b; }
 .ar-result .eq-chip { display: inline-block; background: var(--brand); color: #fff; border-radius: 11px; padding: 2px 9px; font-size: 11px; font-weight: 700; margin: 0 3px 3px 0; }
 .ar-result .miss { color: #999; }
 .ar-result b { color: var(--brand); }
-.ar-examples { margin-top: 10px; font-size: 12px; color: #777; display: flex; flex-wrap: wrap; gap: 6px; align-items: center; }
-.ar-try { font-weight: 600; }
-.ar-chip-btn { border: 1px solid var(--brand-tint-border); background: #fff; color: var(--brand); border-radius: 12px; padding: 3px 10px; font-size: 11.5px; font-family: inherit; cursor: pointer; }
-.ar-chip-btn:hover { background: var(--brand-tint); }
 tr.ar-custom td { background: #fffdf5; }
 tr.ar-custom td:first-child { box-shadow: inset 3px 0 0 #e6b800; }
 td .eq-tag { display: inline-block; background: #f0e6e6; color: #7a3a3a; border-radius: 9px; padding: 1px 7px; font-size: 10px; font-weight: 700; margin: 1px 2px 1px 0; }
@@ -782,37 +780,54 @@ td .eq-tag { display: inline-block; background: #f0e6e6; color: #7a3a3a; border-
 .overlay { display: none; position: fixed; inset: 0; background: rgba(0,0,0,.55); z-index: 100; overflow-y: auto; padding: 40px 20px; }
 .overlay.open { display: flex; align-items: flex-start; justify-content: center; }
 .modal { background: #fff; border-radius: 10px; max-width: 800px; width: 100%; box-shadow: 0 8px 40px rgba(0,0,0,.25); }
-.modal-header { background: var(--brand); color: #fff; padding: 20px 24px; border-radius: 10px 10px 0 0; display: flex; align-items: flex-start; gap: 12px; }
-.modal-header h2 { font-size: 16px; flex: 1; line-height: 1.4; }
-.modal-header .state-badge { font-size: 13px; font-weight: 700; padding: 3px 10px; border-radius: 12px; white-space: nowrap; }
-.close-btn { background: none; border: none; color: rgba(255,255,255,.8); font-size: 22px; cursor: pointer; padding: 0 4px; line-height: 1; }
+.modal-header { background: var(--brand); color: #fff; padding: 16px 22px; border-radius: 10px 10px 0 0; display: flex; flex-direction: column; gap: 9px; }
+.mh-row { display: flex; align-items: center; gap: 8px; }
+.modal-header h2 { font-size: 17px; line-height: 1.35; font-weight: 700; }
+.modal-header .state-badge { font-size: 12px; font-weight: 700; padding: 2px 9px; border-radius: 11px; white-space: nowrap; background: rgba(255,255,255,.18); }
+.status-pill { font-size: 11px; font-weight: 700; padding: 2px 9px; border-radius: 11px; background: rgba(255,255,255,.18); color: #fff; text-transform: uppercase; letter-spacing: .3px; }
+.close-btn { margin-left: auto; background: none; border: none; color: rgba(255,255,255,.85); font-size: 20px; cursor: pointer; padding: 0 2px; line-height: 1; }
 .close-btn:hover { color: #fff; }
 .modal-body { padding: 0; }
-.meta-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 0; border-bottom: 1px solid #eee; }
-.meta-item { padding: 12px 16px; border-right: 1px solid #eee; border-bottom: 1px solid #eee; }
-.meta-item:nth-child(3n) { border-right: none; }
-.meta-label { font-size: 10px; text-transform: uppercase; letter-spacing: .5px; color: #888; margin-bottom: 3px; }
-.meta-value { font-size: 13px; font-weight: 600; color: #222; }
-.meta-value.highlight { color: #1f6e1f; font-size: 15px; }
-.meta-value a { color: var(--brand); }
-.status-active { color: #1f6e1f; }
-.status-paused { color: #b45309; }
-.status-pending { color: #6d4c41; }
-.status-expired { color: #888; }
-.section { padding: 20px 24px; border-bottom: 1px solid #eee; }
+/* Hero -- what the program pays, up top */
+.hero { display: flex; gap: 16px; align-items: flex-start; padding: 18px 24px; border-bottom: 1px solid #eee; }
+.hero-main { flex: 1; min-width: 0; }
+.hero-side { text-align: right; flex-shrink: 0; }
+.hero-label { font-size: 10px; text-transform: uppercase; letter-spacing: .5px; color: #8a8f98; margin-bottom: 4px; }
+.hero-value { font-size: 20px; font-weight: 800; color: #1f6e1f; line-height: 1.25; }
+.hero-max { font-size: 14px; font-weight: 600; color: #333; }
+@media (max-width: 520px) { .hero { flex-direction: column; gap: 10px; } .hero-side { text-align: left; } }
+.section { padding: 18px 24px; border-bottom: 1px solid #eee; }
 .section:last-child { border-bottom: none; }
-.section-title { font-size: 12px; font-weight: 700; text-transform: uppercase; letter-spacing: .5px; color: var(--brand); margin-bottom: 10px; display: flex; align-items: center; gap: 8px; }
-.section-title::after { content: ''; flex: 1; height: 1px; background: #e0e7f0; }
+.section-title { font-size: 11px; font-weight: 700; text-transform: uppercase; letter-spacing: .5px; color: #6b7280; margin-bottom: 10px; }
 .section-body { font-size: 13px; line-height: 1.7; color: #333; white-space: pre-line; }
-.example-box { background: #f0f7f0; border-left: 3px solid #2d8c2d; border-radius: 0 6px 6px 0; padding: 14px 16px; font-size: 13px; line-height: 1.7; white-space: pre-line; }
-.notes-box { background: #fff8e1; border-left: 3px solid #e6b800; border-radius: 0 6px 6px 0; padding: 12px 16px; font-size: 12px; color: #555; }
-.calc-panel { background: #f0f7f0; border: 1px solid #cfe6cf; border-radius: 8px; padding: 4px 0; }
-.calc-row { display: grid; grid-template-columns: 190px 1fr; gap: 10px; padding: 9px 16px; border-bottom: 1px solid #dcecdc; }
+.notes-box { background: #fff8e1; border-left: 3px solid #e6b800; border-radius: 0 6px 6px 0; padding: 12px 16px; font-size: 12px; color: #555; line-height: 1.6; }
+/* Calculation values -- neutral card, green reserved for the numbers themselves */
+.calc-panel { background: #fafafa; border: 1px solid #e6e6e6; border-radius: 8px; padding: 2px 0; }
+.calc-row { display: grid; grid-template-columns: 175px 1fr; gap: 10px; padding: 9px 16px; border-bottom: 1px solid #eee; }
 .calc-row:last-child { border-bottom: none; }
-.calc-label { font-size: 11px; text-transform: uppercase; letter-spacing: .4px; color: #4a7a4a; font-weight: 700; align-self: center; }
-.calc-val { font-size: 15px; font-weight: 700; color: #1f6e1f; }
-.num { background: #d9f0d9; color: #145214; border-radius: 3px; padding: 0 3px; font-weight: 700; }
+.calc-label { font-size: 11px; text-transform: uppercase; letter-spacing: .4px; color: #888; font-weight: 700; align-self: center; }
+.calc-val { font-size: 14px; font-weight: 700; color: #1f6e1f; }
+.num { background: #e7f3e7; color: #145214; border-radius: 3px; padding: 0 3px; font-weight: 700; }
 @media (max-width: 520px) { .calc-row { grid-template-columns: 1fr; gap: 2px; } }
+/* Compact key-facts grid */
+.facts { display: grid; grid-template-columns: 1fr 1fr; gap: 1px; background: #eee; border-bottom: 1px solid #eee; }
+.fact { background: #fff; padding: 11px 24px; display: flex; flex-direction: column; gap: 2px; }
+.fact-wide { grid-column: 1 / -1; }
+.fact-label { font-size: 10px; text-transform: uppercase; letter-spacing: .5px; color: #8a8f98; }
+.fact-val { font-size: 13px; font-weight: 600; color: #222; }
+@media (max-width: 520px) { .facts { grid-template-columns: 1fr; } .fact-wide { grid-column: auto; } }
+/* Applies-to equipment, one compact line */
+.equip-line { padding: 13px 24px; border-bottom: 1px solid #eee; font-size: 12px; }
+.equip-line-label { font-size: 10px; text-transform: uppercase; letter-spacing: .5px; color: #8a8f98; margin-right: 6px; }
+/* Collapsible reference sections -- open compact, expand on demand */
+.disc { border-bottom: 1px solid #eee; }
+.disc > summary { list-style: none; cursor: pointer; padding: 14px 24px; font-size: 11px; font-weight: 700; text-transform: uppercase; letter-spacing: .5px; color: #6b7280; display: flex; align-items: center; gap: 8px; }
+.disc > summary::-webkit-details-marker { display: none; }
+.disc > summary::before { content: '\\25b8'; font-size: 10px; color: #b0b4bb; transition: transform .15s; }
+.disc[open] > summary::before { transform: rotate(90deg); }
+.disc > summary:hover { color: var(--brand); }
+.disc .section-body { padding: 0 24px 18px; }
+.example-box { background: #f6f8f6; border-left: 3px solid #9ccc9c; border-radius: 0 6px 6px 0; margin: 0 24px 18px; padding: 14px 16px; font-size: 13px; line-height: 1.7; white-space: pre-line; }
 .modal-footer { padding: 16px 24px; background: #f8f9fa; border-radius: 0 0 10px 10px; display: flex; justify-content: space-between; align-items: center; }
 .apply-btn { display: inline-block; background: var(--brand); color: #fff; padding: 9px 20px; border-radius: 5px; text-decoration: none; font-size: 13px; font-weight: 600; }
 .apply-btn:hover { background: var(--brand-dark); color: #fff; text-decoration: none; }
@@ -844,13 +859,6 @@ td .eq-tag { display: inline-block; background: #f0e6e6; color: #7a3a3a; border-
       <button type="button" class="ar-clear" id="ar-clear" onclick="clearAr()">Clear</button>
     </div>
     <div class="ar-result" id="ar-result"></div>
-    <div class="ar-examples"><span class="ar-try">Try:</span>
-      <button type="button" class="ar-chip-btn" onclick="setAr(this.textContent)">Install VFD on compressors</button>
-      <button type="button" class="ar-chip-btn" onclick="setAr(this.textContent)">Install lighting controls</button>
-      <button type="button" class="ar-chip-btn" onclick="setAr(this.textContent)">Add VFD to HVAC supply fan</button>
-      <button type="button" class="ar-chip-btn" onclick="setAr(this.textContent)">Replace boiler; add heat recovery</button>
-      <button type="button" class="ar-chip-btn" onclick="setAr(this.textContent)">Refrigeration controls upgrade</button>
-    </div>
   </div>
 </div>
 <div class="controls">
@@ -875,47 +883,58 @@ td .eq-tag { display: inline-block; background: #f0e6e6; color: #7a3a3a; border-
 <div class="overlay" id="overlay" onclick="closeOnOverlay(event)">
 <div class="modal" id="modal">
   <div class="modal-header">
+    <div class="mh-row">
+      <span class="state-badge" id="m-state-badge"></span>
+      <span class="status-pill" id="m-status"></span>
+      <button class="close-btn" onclick="closeDetail()">&#10005;</button>
+    </div>
     <h2 id="m-name"></h2>
-    <span class="state-badge" id="m-state-badge"></span>
-    <button class="close-btn" onclick="closeDetail()">&#10005;</button>
   </div>
   <div class="modal-body">
-    <div class="meta-grid">
-      <div class="meta-item"><div class="meta-label">Incentive Value</div><div class="meta-value highlight" id="m-value"></div></div>
-      <div class="meta-item"><div class="meta-label">Max Benefit</div><div class="meta-value" id="m-max"></div></div>
-      <div class="meta-item"><div class="meta-label">Status</div><div class="meta-value" id="m-status"></div></div>
-      <div class="meta-item"><div class="meta-label">Incentive Type</div><div class="meta-value" id="m-type"></div></div>
-      <div class="meta-item"><div class="meta-label">Technology</div><div class="meta-value" id="m-tech"></div></div>
-      <div class="meta-item"><div class="meta-label">Sector</div><div class="meta-value" id="m-sector"></div></div>
-      <div class="meta-item"><div class="meta-label">Administrator</div><div class="meta-value" id="m-admin"></div></div>
-      <div class="meta-item"><div class="meta-label">Eligible Recipients</div><div class="meta-value" id="m-recip"></div></div>
-      <div class="meta-item"><div class="meta-label">Expiration</div><div class="meta-value" id="m-exp"></div></div>
+    <!-- Hero: what it pays -->
+    <div class="hero">
+      <div class="hero-main">
+        <div class="hero-label">Incentive</div>
+        <div class="hero-value" id="m-value"></div>
+      </div>
+      <div class="hero-side">
+        <div class="hero-label">Max benefit</div>
+        <div class="hero-max" id="m-max"></div>
+      </div>
     </div>
-    <div id="m-equip-section" class="section">
-      <div class="section-title">Applies to Equipment</div>
-      <div id="m-equip"></div>
-    </div>
+    <!-- The numbers you work with -->
     <div id="m-calc-section" class="section">
-      <div class="section-title">Calculation Values (numbers used in savings math)</div>
+      <div class="section-title">Calculation values</div>
       <div id="m-calc-status"></div>
       <div class="calc-panel" id="m-calc-panel"></div>
     </div>
+    <!-- Key facts, compact -->
+    <div class="facts">
+      <div class="fact"><span class="fact-label">Administrator</span><span class="fact-val" id="m-admin"></span></div>
+      <div class="fact"><span class="fact-label">Type</span><span class="fact-val" id="m-type"></span></div>
+      <div class="fact"><span class="fact-label">Technology</span><span class="fact-val" id="m-tech"></span></div>
+      <div class="fact"><span class="fact-label">Expiration</span><span class="fact-val" id="m-exp"></span></div>
+      <div class="fact fact-wide"><span class="fact-label">Eligible recipients</span><span class="fact-val" id="m-recip"></span></div>
+    </div>
+    <div id="m-equip-section" class="equip-line">
+      <span class="equip-line-label">Applies to</span> <span id="m-equip"></span>
+    </div>
     <div id="m-notes-section" class="section">
-      <div class="section-title">Important Notes</div>
       <div class="notes-box" id="m-notes"></div>
     </div>
-    <div class="section">
-      <div class="section-title">How to Apply (Implementation Steps)</div>
+    <!-- Reference detail, collapsed by default -->
+    <details class="disc" id="d-impl">
+      <summary>How to apply</summary>
       <div class="section-body" id="m-implementation"></div>
-    </div>
-    <div class="section">
-      <div class="section-title">Savings Methodology</div>
+    </details>
+    <details class="disc" id="d-meth">
+      <summary>Savings methodology</summary>
       <div class="section-body" id="m-methodology"></div>
-    </div>
-    <div class="section">
-      <div class="section-title">Worked Example</div>
+    </details>
+    <details class="disc" id="d-example">
+      <summary>Worked example</summary>
       <div class="example-box" id="m-example"></div>
-    </div>
+    </details>
   </div>
   <div class="modal-footer">
     <a class="apply-btn" id="m-apply-link" href="#" target="_blank">Apply / More Info &rarr;</a>
@@ -962,12 +981,6 @@ function arCategories(text) {
   return cats;
 }
 
-function setAr(text) {
-  document.getElementById('ar-input').value = text;
-  applyFilters();
-  document.getElementById('ar-input').focus();
-}
-
 function clearAr() {
   document.getElementById('ar-input').value = '';
   applyFilters();
@@ -995,10 +1008,9 @@ function openDetail(idx) {
   document.getElementById('m-max').textContent = d.max || 'See program';
   var statusEl = document.getElementById('m-status');
   statusEl.textContent = d.status;
-  statusEl.className = 'meta-value status-' + d.status.toLowerCase().replace(/\\s+/g, '-').replace('temporarily-', '');
+  statusEl.className = 'status-pill status-' + d.status.toLowerCase().replace(/\\s+/g, '-').replace('temporarily-', '');
   document.getElementById('m-type').textContent = d.type;
   document.getElementById('m-tech').textContent = d.tech;
-  document.getElementById('m-sector').textContent = d.sector;
   document.getElementById('m-admin').textContent = d.admin;
   document.getElementById('m-recip').textContent = d.recipients;
   document.getElementById('m-exp').textContent = d.expiration || 'Ongoing';
@@ -1064,16 +1076,31 @@ function openDetail(idx) {
     calcPanel.innerHTML = calcHtml;
   } else {
     statusEl2.className = 'calc-status general';
-    statusEl2.innerHTML = 'General / estimated — exact per-unit values are pending. ' +
-      'Provide the program PDF to add verified figures.' + srcLink;
+    statusEl2.innerHTML = "This program's incentive isn't a single published rate &mdash; the " +
+      'amount is determined case by case (custom, modeled, competitive, or otherwise ' +
+      'application-specific). Contact the program administrator or open the program page ' +
+      'below for the figure that applies to your project.' + srcLink;
     calcPanel.innerHTML = calcHtml;
-    showPanel = true;   // always show so the "pending" note is visible
+    showPanel = true;   // always show so the note is visible
   }
   document.getElementById('m-calc-section').style.display = showPanel ? '' : 'none';
 
-  document.getElementById('m-implementation').textContent = d.implementation || 'See program website for application instructions.';
-  document.getElementById('m-methodology').innerHTML = d.methodology ? hlNums(d.methodology) : 'See program website for savings calculation methodology.';
-  document.getElementById('m-example').innerHTML = d.example ? hlNums(d.example) : 'See program website for example savings calculations.';
+  // Reference sections: fill each collapsible and hide the whole <details> when
+  // there's nothing to show, so sparse programs don't sprout empty expanders.
+  function fillDisc(discId, bodyId, content, asHtml) {
+    var disc = document.getElementById(discId);
+    var body = document.getElementById(bodyId);
+    if (content) {
+      if (asHtml) { body.innerHTML = hlNums(content); } else { body.textContent = content; }
+      disc.style.display = '';
+    } else {
+      disc.style.display = 'none';
+      disc.open = false;
+    }
+  }
+  fillDisc('d-impl', 'm-implementation', d.implementation, false);
+  fillDisc('d-meth', 'm-methodology', d.methodology, true);
+  fillDisc('d-example', 'm-example', d.example, true);
   var applyLink = document.getElementById('m-apply-link');
   applyLink.href = d.url || '#';
   applyLink.style.display = d.url ? '' : 'none';
