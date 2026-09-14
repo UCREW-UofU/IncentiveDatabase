@@ -9,7 +9,7 @@ single `ENABLED_STATES` list in [`fetch_incentives.py`](fetch_incentives.py). Ad
 state code there (e.g. `["UT", "ID"]`) and the scrapers, the kept records, and every
 site/Excel label update automatically.
 
-**Live site:** https://jackurness13.github.io/IncentiveDatabase/
+**Live site:** https://ucrew-uofu.github.io/IncentiveDatabase/
 
 The scanner collects utility and program incentives, records the actual numbers used
 in savings calculations (rebate rates, tiers, baselines, minimum project sizes), and
