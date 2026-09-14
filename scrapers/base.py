@@ -61,6 +61,7 @@ def record(
     implementation="", methodology="", example="",
     incentive_rate="", rebate_tiers="", unit_cap="", baseline="", min_project="",
     key="", detail_level="detailed", verified_date="", source_doc="", changed=False,
+    verified_by="",
 ):
     return {
         "State": state,
@@ -95,4 +96,8 @@ def record(
         "_verified_date": verified_date,     # ISO date the exact values were confirmed
         "_source_doc": source_doc,           # authoritative PDF/page the values came from
         "_changed": "1" if changed else "",  # set when source_doc changed since verified
+        # Who verified the exact values: "human" (hand-curated from a PDF),
+        # "ai" (auto-extracted + confidence-gated by scrapers/extractor.py), or
+        # "" (general stub, unverified). Drives the tier badge in the UI.
+        "_verified_by": verified_by,
     }

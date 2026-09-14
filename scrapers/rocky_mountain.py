@@ -704,5 +704,6 @@ def _measures():
             detail_level=("detailed" if detailed else "general"),
             verified_date=(m.get("verified", VERIFIED_DATE) if detailed else ""),
             source_doc=m.get("source_doc", m["url"]),
+            verified_by=("human" if detailed else ""),
         ))
     return rows

@@ -18,6 +18,7 @@ Outputs:
   run_log.txt      -- Timestamped run history
 """
 
+import os
 import sqlite3
 import importlib
 import json
@@ -44,6 +45,10 @@ SITE_DIR = BASE_DIR / "site"
 DATA_DIR = BASE_DIR / "data"
 NEEDS_DATA_PATH = DATA_DIR / "needs_data.md"
 SCAN_STATE_PATH = DATA_DIR / "scan_state.json"
+# AI-extracted rate overlay + its audit trail. Each entry records the exact PDF
+# fingerprint an extraction was made from, so the API is only called when a PDF
+# actually changes; committed so promotions/demotions show up as a git diff.
+AI_EXTRACTIONS_PATH = DATA_DIR / "ai_extractions.json"
 # UCREW brand logo (vendored in-repo so CI builds have no external dependency).
 LOGO_PATH = BASE_DIR / "assets" / "ucrew-logo.svg"
 
@@ -102,7 +107,7 @@ DETAIL_COLUMNS = [
     "_incentive_rate", "_rebate_tiers", "_unit_cap", "_baseline", "_min_project",
     "_implementation", "_methodology", "_example",
     # Two-tier model metadata (see scrapers/base.record).
-    "_key", "_detail_level", "_verified_date", "_source_doc", "_changed",
+    "_key", "_detail_level", "_verified_date", "_source_doc", "_changed", "_verified_by",
 ]
 
 ALL_COLUMNS = COLUMNS + DETAIL_COLUMNS
@@ -217,7 +222,7 @@ def classify_equipment(text):
 
 
 
-def main():
+def main(dry_run_ai=False):
     print("\n" + "=" * 60)
     print("  Energy Efficiency Incentives DB -- " + str(date.today()))
     print("=" * 60 + "\n")
@@ -226,6 +231,13 @@ def main():
     all_rows = _deduplicate(all_rows)
     all_rows = _auto_expire(all_rows)
     all_rows = _apply_change_detection(all_rows)
+    all_rows = _apply_ai_extraction(all_rows, persist=not dry_run_ai)
+
+    if dry_run_ai:
+        # Preview mode: show what AI extraction did without writing outputs or the
+        # committed caches, so a run can be reviewed before it goes live.
+        _print_ai_dry_run(all_rows)
+        return
 
     print("\nTotal programs collected: " + str(len(all_rows)))
     _print_summary(all_rows)
@@ -619,14 +631,21 @@ def _write_html(rows):
             "verified": str(row.get("_verified_date") or ""),
             "changed": bool(str(row.get("_changed") or "")),
             "sourceDoc": str(row.get("_source_doc") or ""),
+            "verifiedBy": str(row.get("_verified_by") or ""),
         }
 
         # Data-completeness (tier) badge shown next to the program name.
         detail_level = str(row.get("_detail_level") or "general")
         verified = str(row.get("_verified_date") or "")
+        verified_by = str(row.get("_verified_by") or "")
         changed = bool(str(row.get("_changed") or ""))
         if changed:
             tier_badge = '<span class="tier tier-changed">&#9888; source changed &middot; re-verify</span>'
+        elif detail_level == "detailed" and verified_by == "ai":
+            # AI-extracted + confidence-gated: verified, but flagged as machine-read
+            # so students know it wasn't hand-checked.
+            tier_badge = ('<span class="tier tier-ai">&#10003; AI-verified'
+                          + ((' ' + _esc(verified)) if verified else '') + '</span>')
         elif detail_level == "detailed":
             tier_badge = ('<span class="tier tier-verified">&#10003; verified'
                           + ((' ' + _esc(verified)) if verified else '') + '</span>')
@@ -749,10 +768,12 @@ td .eq-tag { display: inline-block; background: #f0e6e6; color: #7a3a3a; border-
 /* Data-completeness (tier) badges */
 .tier { display: inline-block; border-radius: 9px; padding: 1px 7px; font-size: 10px; font-weight: 700; white-space: nowrap; vertical-align: middle; }
 .tier-verified { background: #e5f4e5; color: #1f6e1f; border: 1px solid #bfe3bf; }
+.tier-ai { background: #eaf0fb; color: #2952a3; border: 1px solid #c3d4f0; }
 .tier-general { background: #fff4e0; color: #9a6a00; border: 1px solid #f0d9a8; }
 .tier-changed { background: #fdecec; color: #b42318; border: 1px solid #f3c4c0; }
 .calc-status { font-size: 12px; line-height: 1.5; padding: 9px 12px; border-radius: 6px; margin-bottom: 10px; }
 .calc-status.verified { background: #f0f7f0; color: #1f6e1f; border: 1px solid #cfe6cf; }
+.calc-status.ai { background: #eef3fc; color: #274b8f; border: 1px solid #cddbf3; }
 .calc-status.general { background: #fff8ec; color: #7a5200; border: 1px solid #f0d9a8; }
 .calc-status.changed { background: #fdecec; color: #b42318; border: 1px solid #f3c4c0; }
 .calc-status a { color: inherit; text-decoration: underline; }
@@ -1030,6 +1051,12 @@ function openDetail(idx) {
       '. Exact values are pending re-verification — confirm with the program administrator.' + srcLink;
     calcPanel.innerHTML = '';
     showPanel = true;   // show the section for the status note even with no rows
+  } else if (d.detailLevel === 'detailed' && d.verifiedBy === 'ai') {
+    statusEl2.className = 'calc-status ai';
+    statusEl2.innerHTML = '&#10003; Values auto-extracted from the rate PDF by AI' +
+      (d.verified ? ' (' + escHtml(d.verified) + ')' : '') +
+      ' and cross-checked across multiple reads. Machine-read &mdash; confirm against the source before advising clients.' + srcLink;
+    calcPanel.innerHTML = calcHtml;
   } else if (d.detailLevel === 'detailed') {
     statusEl2.className = 'calc-status verified';
     statusEl2.innerHTML = '&#10003; Exact values verified' + (d.verified ? ' ' + escHtml(d.verified) : '') +
@@ -1312,6 +1339,228 @@ def _apply_change_detection(rows):
     return rows
 
 
+def _load_ai_extractions():
+    try:
+        return json.loads(AI_EXTRACTIONS_PATH.read_text(encoding="utf-8"))
+    except (OSError, ValueError):
+        return {"extractions": {}}
+
+
+def _save_ai_extractions(cache):
+    DATA_DIR.mkdir(exist_ok=True)
+    AI_EXTRACTIONS_PATH.write_text(
+        json.dumps(cache, indent=2, sort_keys=True) + "\n", encoding="utf-8")
+
+
+def _overlay_ai_fields(row, entry):
+    """Apply a cached passing AI extraction onto a row: fill the calc values,
+    promote it to a verified 'detailed'/AI row, and clear any 'changed' flag.
+    The stored extraction date (not today's) is used so the verified date is
+    stable across runs."""
+    f = entry["fields"]
+    if f.get("value"):
+        row["Incentive Value"] = f["value"]
+    if f.get("max"):
+        row["Max Benefit"] = f["max"]
+    row["_incentive_rate"] = f.get("rate", "")
+    row["_rebate_tiers"] = f.get("tiers", "")
+    row["_unit_cap"] = f.get("cap", "")
+    row["_baseline"] = f.get("baseline", "")
+    row["_min_project"] = f.get("minp", "")
+    if f.get("methodology"):
+        row["_methodology"] = f["methodology"]
+    ai_note = ("Rate values auto-extracted from the program's rate PDF by Claude ("
+               + entry.get("model", "") + ") and confidence-checked (agreed across "
+               + str(entry.get("samples", 0)) + " independent reads; sheet effective "
+               + (f.get("effective_date") or "n/a") + "). Verify against the source PDF "
+               "before advising clients.")
+    existing = row.get("Notes", "")
+    if f.get("notes"):
+        existing = (f["notes"] + "  " + existing).strip()
+    row["Notes"] = (ai_note + "  " + existing).strip() if existing else ai_note
+    row["_detail_level"] = "detailed"
+    row["_verified_by"] = "ai"
+    row["_verified_date"] = entry.get("date", "")
+    row["_changed"] = ""
+
+
+def _apply_ai_extraction(rows, persist=True):
+    """Passive AI promotion: hand rate PDFs to Claude and overlay the confidence-
+    gated result, so new categories and revised sheets get exact numbers without a
+    human. Candidacy (only rows whose source_doc is a PDF):
+      * 'general' stubs -- AI owns these outright;
+      * a human 'detailed' row flagged '_changed' -- its sheet moved, so re-verify;
+      * a row the AI already owns (passing cache entry) -- keep it, and re-extract
+        only when the PDF's fingerprint moves.
+    A human 'detailed' row whose PDF has NOT moved is never touched. Extractions are
+    cached by (key, PDF fingerprint) so the API is called only when a PDF actually
+    changes; a failed read is cached too, so an unchanged 'not confident' PDF isn't
+    retried daily. The whole step is skipped unless INCENTIVES_AI_EXTRACT is on and
+    credentials resolve -- so the build is unchanged when AI extraction is disabled."""
+    from scrapers import extractor
+    from scrapers.base import fingerprint
+
+    cache = _load_ai_extractions()
+    entries = cache.setdefault("extractions", {})
+
+    # Candidates: rows backed by a PDF rate sheet.
+    def is_pdf(u):
+        return bool(u) and u.lower().endswith(".pdf")
+
+    candidates = [r for r in rows if is_pdf(str(r.get("_source_doc") or ""))
+                  and str(r.get("_key") or "")]
+    if not candidates:
+        return rows
+
+    on = extractor.available()
+    if not on:
+        # Extraction disabled: still overlay any previously-cached passing results
+        # whose PDF hasn't changed, so the committed AI data keeps rendering.
+        applied = 0
+        for r in candidates:
+            key = str(r["_key"])
+            e = entries.get(key)
+            if not e or e.get("confidence") != "pass":
+                continue
+            fp = fingerprint(str(r["_source_doc"]))
+            if fp and fp == e.get("fingerprint") and str(r.get("_verified_by")) != "human":
+                _overlay_ai_fields(r, e)
+                applied += 1
+        if applied:
+            print("AI extraction: disabled; re-applied " + str(applied)
+                  + " cached result(s) from " + AI_EXTRACTIONS_PATH.name)
+        return rows
+
+    print("\nAI extraction: enabled (model " + extractor.MODEL + ", "
+          + str(extractor.SAMPLES) + " reads/PDF) -- checking "
+          + str(len(candidates)) + " PDF-backed program(s)...")
+    promoted = reused = failed = calls = 0
+    today = date.today().isoformat()
+
+    for r in candidates:
+        key = str(r["_key"])
+        src = str(r["_source_doc"])
+        level = str(r.get("_detail_level") or "general")
+        is_human = str(r.get("_verified_by")) == "human"
+        is_changed = bool(str(r.get("_changed") or ""))
+        e = entries.get(key)
+        fp = fingerprint(src)
+
+        # 1. AI already owns this exact PDF -> overlay from cache, no API call.
+        if e and e.get("confidence") == "pass" and fp and fp == e.get("fingerprint"):
+            _overlay_ai_fields(r, e)
+            reused += 1
+            continue
+        # 2. This exact PDF was already read and failed the gate -> don't retry.
+        if e and e.get("confidence") == "fail" and fp and fp == e.get("fingerprint"):
+            r["_ai_note"] = "ai: low confidence -- " + str(e.get("reason", ""))
+            failed += 1
+            continue
+        # 3. Decide whether to (re)extract.
+        ai_owned_stale = bool(e and e.get("confidence") == "pass")  # passed before, fp moved
+        want = (level != "detailed") or is_changed or ai_owned_stale
+        if is_human and not is_changed and not ai_owned_stale:
+            continue  # untouched human sheet, unchanged -> leave human values
+        if not want:
+            continue
+
+        print("  [ai] extracting: " + r.get("Program Name", key))
+        calls += 1
+        result = extractor.extract_measure(src, r.get("Program Name", ""), r.get("Administrator", ""))
+        entry = {
+            "confidence": result["confidence"],
+            "fingerprint": fp,
+            "source_doc": src,
+            "date": today,
+            "model": extractor.MODEL,
+            "samples": result.get("samples", 0),
+            "reason": result.get("reason", ""),
+        }
+        if result["confidence"] == "pass":
+            # Preserve the original first-verified date if we already had one.
+            if e and e.get("confidence") == "pass" and e.get("date"):
+                entry["date"] = today  # a changed PDF is a fresh verification
+            entry["fields"] = result["fields"]
+            entries[key] = entry
+            _overlay_ai_fields(r, entry)
+            promoted += 1
+            print("    [ai] PASS -- " + result["reason"])
+        else:
+            entries[key] = entry  # cache the failure (keyed to this fingerprint)
+            r["_ai_note"] = "ai: low confidence -- " + result.get("reason", "")
+            failed += 1
+            print("    [ai] FAIL -- " + result["reason"])
+
+    if persist:
+        _save_ai_extractions(cache)
+    print("AI extraction: " + str(promoted) + " promoted, " + str(reused)
+          + " re-applied from cache, " + str(failed) + " left pending ("
+          + str(calls) + " API extraction(s) this run) -> " + AI_EXTRACTIONS_PATH.name)
+    return rows
+
+
+def _ai_smoke_test():
+    """One-shot smoke test: run the extractor against a single real rate PDF and
+    print the result. Proves the API authenticates and the confidence gate produces
+    sane figures, without touching any output file, cache, or the live site. Used by
+    `python fetch_incentives.py --ai-smoke`."""
+    from scrapers import extractor, rocky_mountain
+    print("\n" + "=" * 60)
+    print("  AI SMOKE TEST -- one PDF, nothing written")
+    print("=" * 60)
+    if not extractor.available():
+        print("\nExtractor unavailable. Need INCENTIVES_AI_EXTRACT=1, the anthropic")
+        print("package, and resolvable ANTHROPIC_API_KEY. Aborting (no API call made).")
+        return
+    # A known, stable RMP rate sheet with clear prescriptive $/unit figures.
+    pdf = rocky_mountain.PDF["compressed_air"]
+    name = "wattsmart Business -- Compressed Air System Optimization (calculated)"
+    print("\nModel:  " + extractor.MODEL + " (" + str(extractor.SAMPLES) + " reads)")
+    print("PDF:    " + pdf + "\n")
+    result = extractor.extract_measure(pdf, name, "Rocky Mountain Power")
+    print("Verdict: " + result["confidence"].upper() + " -- " + result.get("reason", ""))
+    f = result.get("fields")
+    if f:
+        print("\nExtracted values:")
+        print("  value:          " + f.get("value", ""))
+        print("  max_benefit:    " + f.get("max", ""))
+        print("  incentive_rate: " + f.get("rate", ""))
+        print("  tiers:          " + f.get("tiers", ""))
+        print("  unit_cap:       " + f.get("cap", ""))
+        print("  baseline:       " + f.get("baseline", ""))
+        print("  effective_date: " + f.get("effective_date", ""))
+        print("  figures_found:  " + ", ".join(f.get("figures", [])))
+        print("\nEyeball these against the PDF above. If they match, the pipeline works.")
+    else:
+        print("\nNo values returned (gate not passed). This is the SAFE failure mode --")
+        print("in a real run the row would stay a 'general' stub, not publish a guess.")
+
+
+def _print_ai_dry_run(rows):
+    """Preview report for `--ai-dry-run`: list every AI-verified row and its
+    extracted figures, without writing outputs or the committed cache."""
+    ai_rows = [r for r in rows if str(r.get("_verified_by")) == "ai"]
+    print("\n" + "=" * 60)
+    print("  AI EXTRACTION DRY RUN -- nothing written")
+    print("=" * 60)
+    if not ai_rows:
+        print("\nNo rows were AI-verified this run. Check that INCENTIVES_AI_EXTRACT=1,")
+        print("ANTHROPIC_API_KEY is set, and candidate PDFs exist. See the log above")
+        print("for any per-PDF FAIL reasons.")
+        return
+    print("\n" + str(len(ai_rows)) + " row(s) would be promoted to AI-verified:\n")
+    for r in ai_rows:
+        print("- " + str(r.get("Program Name", "")))
+        print("    key:   " + str(r.get("_key", "")))
+        print("    value: " + str(r.get("Incentive Value", "")))
+        print("    rate:  " + str(r.get("_incentive_rate", "")))
+        if r.get("_rebate_tiers"):
+            print("    tiers: " + str(r.get("_rebate_tiers")))
+        print("    src:   " + str(r.get("_source_doc", "")))
+        print("")
+    print("Review these against the source PDFs. To go live, run without --ai-dry-run.")
+
+
 def _write_needs_data(rows):
     """Write the maintainer worklist: programs that are 'general' (exact values
     pending) or 'changed' (source updated, needs re-verification). This is the
@@ -1323,11 +1572,18 @@ def _write_needs_data(rows):
         changed = bool(str(r.get("_changed") or ""))
         if level == "detailed" and not changed:
             continue
+        ai_note = str(r.get("_ai_note") or "")
+        if ai_note:
+            reason = ai_note
+        elif changed:
+            reason = "changed -- re-verify"
+        else:
+            reason = "general -- values pending"
         pending.append({
             "name": str(r.get("Program Name") or ""),
             "key": str(r.get("_key") or ""),
             "admin": str(r.get("Administrator") or ""),
-            "reason": "changed -- re-verify" if changed else "general -- values pending",
+            "reason": reason,
             "source": str(r.get("_source_doc") or r.get("Application URL") or ""),
         })
 
@@ -1357,4 +1613,14 @@ def _write_needs_data(rows):
 
 
 if __name__ == "__main__":
-    main()
+    import sys
+    # --ai-dry-run forces AI extraction on and previews the result without writing
+    # any output files or the committed AI cache (for reviewing before it goes live).
+    if "--ai-smoke" in sys.argv:
+        os.environ["INCENTIVES_AI_EXTRACT"] = "1"
+        _ai_smoke_test()
+        sys.exit(0)
+    dry = "--ai-dry-run" in sys.argv
+    if dry:
+        os.environ["INCENTIVES_AI_EXTRACT"] = "1"
+    main(dry_run_ai=dry)

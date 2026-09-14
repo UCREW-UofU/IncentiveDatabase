@@ -3,3 +3,6 @@ beautifulsoup4>=4.12.0
 lxml>=5.0.0
 pandas>=2.2.0
 openpyxl>=3.1.0
+# Only needed when AI rate extraction is enabled (INCENTIVES_AI_EXTRACT=1).
+# Harmless to install otherwise; the extractor imports it lazily.
+anthropic>=0.69.0

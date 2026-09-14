@@ -49,6 +49,9 @@ scrapers/                   One module per data source (each returns C&I program
                               MACRS, 179D, USDA REAP  [active, all states]
   discovery.py                Breadth discovery: scans utility index pages, adds any
                               uncovered program/category as a 'general' stub [active]
+  extractor.py                Optional AI rate extraction: hands a rate PDF to Claude,
+                              confidence-gates the result, and auto-promotes it to a
+                              verified row [off unless INCENTIVES_AI_EXTRACT=1]
   nv_energy.py                NV Energy PowerShift Business (NV)        [disabled: not in ENABLED_STATES]
   northwestern.py             NorthWestern Energy Business (MT)         [disabled: not in ENABLED_STATES]
   idaho_power.py              Idaho Power C&I + Agricultural (ID)       [disabled: not in ENABLED_STATES]
@@ -57,6 +60,7 @@ scrapers/                   One module per data source (each returns C&I program
                               JS-rendered; federal.py carries the key federal incentives instead]
 data/scan_state.json        Per-program source fingerprints (change detection); committed
 data/needs_data.md          Auto-generated worklist of programs needing exact data; committed
+data/ai_extractions.json    AI-extracted rates + the PDF fingerprint each came from; committed
 site/                       Static site published to GitHub Pages (generated, gitignored)
 .github/workflows/          Daily build + publish automation
 ```
@@ -69,8 +73,9 @@ Non-Utah scrapers stay in the repo but don't run until their state is added to
 Because exact incentive amounts live in changing PDFs (see "Accuracy" below), every
 program carries a **tier**:
 
-- **`detailed`** — a human verified the exact values from the source; shown with a green
-  **"✓ verified {date}"** badge and its Calculation Values panel populated.
+- **`detailed`** — the exact values were verified from the source; shown with a green
+  **"✓ verified {date}"** badge (human) or a blue **"✓ AI-verified {date}"** badge (see
+  *AI extraction* below), with its Calculation Values panel populated.
 - **`general`** — the program exists and is described broadly, but its exact per-unit
   values are **pending**; shown with an amber **"general · values pending"** badge.
 - A `detailed` entry whose source document later changes flips to a red
@@ -107,6 +112,49 @@ How each piece stays automatic:
 
 To signal a **re-verification** after a "source changed" flag, bump the measure's
 `verified_date` — the change detector re-baselines the fingerprint and clears the flag.
+
+### AI extraction (optional, off by default) — hands-free promotion
+
+The manual loop above can be automated so the site updates with **no human review**.
+When enabled, `scrapers/extractor.py` sends any rate **PDF** to Claude and overlays the
+result — but only after a **confidence gate**, because the site's whole value is *exact*
+numbers feeding real savings math:
+
+- **Self-consistency** — the PDF is read `INCENTIVES_AI_SAMPLES` times (default 2); the
+  reads must agree on the exact set of dollar/percent figures.
+- **Required fields** — a headline value *and* a per-unit rate must be present.
+- **Effective date** — the sheet must yield an effective/revision date.
+- **Money sanity** — at least one real `$` figure.
+
+Anything that fails is **left as a `general` stub** (it shows up in `needs_data.md` as
+`ai: low confidence`), so the failure mode is "not promoted", never "wrong number
+published". Rows that pass render a blue **"✓ AI-verified"** badge, distinct from the
+green human badge, and say so in the modal. Which rows are eligible:
+
+- a `general` stub whose source is a PDF (AI owns these);
+- a human `detailed` row whose PDF **changed** (`⚠ source changed`) — re-verified so the
+  site stays passive when a utility revises a sheet;
+- a row the AI already owns (re-read only when its PDF's fingerprint moves).
+
+A human `detailed` row whose PDF has **not** moved is never touched. Extractions are
+cached in `data/ai_extractions.json` keyed by (program, PDF fingerprint), so **the API is
+called only when a PDF actually changes** — cost is negligible and the committed cache is
+a git-diff audit trail of every machine-made change.
+
+**Turn it on:**
+
+| Setting | Where | Value |
+| --- | --- | --- |
+| `INCENTIVES_AI_EXTRACT` | repo **variable** | `1` |
+| `ANTHROPIC_API_KEY` | repo **secret** | your Anthropic API key |
+| `INCENTIVES_AI_MODEL` | repo variable *(optional)* | default `claude-opus-5`; e.g. `claude-sonnet-5` to cut cost |
+| `INCENTIVES_AI_SAMPLES` | repo variable *(optional)* | default `2` |
+
+**Preview before going live:** `python fetch_incentives.py --ai-dry-run` forces extraction
+on and prints exactly what would be promoted (and any FAIL reasons) **without writing any
+output files or the cache**. Requires `pip install anthropic` and credentials locally.
+With neither the variable nor the secret set, the whole step is a no-op and the build is
+byte-for-byte identical to before.
 
 **Why some rates are "general / pending":** utilities publish exact per-unit amounts in
 PDFs (not machine-readable HTML), and DSIRE — the would-be automated catch-all — now

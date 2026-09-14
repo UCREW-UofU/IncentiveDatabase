@@ -37,6 +37,15 @@ jobs:
         run: pip install -r requirements.txt
 
       - name: Run the scanner (builds site/)
+        # AI rate extraction stays OFF until you opt in: set repo variable
+        # INCENTIVES_AI_EXTRACT=1 and add the ANTHROPIC_API_KEY secret. With
+        # neither set, the extractor's available() returns False and the run is
+        # byte-for-byte the same as before (see scrapers/extractor.py).
+        env:
+          INCENTIVES_AI_EXTRACT: ${{ vars.INCENTIVES_AI_EXTRACT }}
+          INCENTIVES_AI_MODEL: ${{ vars.INCENTIVES_AI_MODEL }}
+          INCENTIVES_AI_SAMPLES: ${{ vars.INCENTIVES_AI_SAMPLES }}
+          ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}
         run: python fetch_incentives.py
 
       # Persist change-detection state + the needs-data worklist so new/changed
@@ -46,7 +55,7 @@ jobs:
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "github-actions[bot]@users.noreply.github.com"
-          git add data/scan_state.json data/needs_data.md
+          git add data/scan_state.json data/needs_data.md data/ai_extractions.json
           if git diff --cached --quiet; then
             echo "No scan-state changes to commit."
           else
