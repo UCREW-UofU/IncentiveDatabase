@@ -48,9 +48,12 @@ from .base import get
 
 # Default to the most capable model: these are dollar figures a human would
 # otherwise verify by hand. Override for cost (e.g. "claude-sonnet-5") via env.
-MODEL = os.environ.get("INCENTIVES_AI_MODEL", "claude-opus-5")
+# NB: an unset GitHub Actions *variable* arrives as an empty string, not unset, so
+# `or`/isdigit guards are required -- os.environ.get's default only covers absence.
+MODEL = os.environ.get("INCENTIVES_AI_MODEL", "").strip() or "claude-opus-5"
 # How many independent extractions must agree before a rate is auto-promoted.
-SAMPLES = int(os.environ.get("INCENTIVES_AI_SAMPLES", "2"))
+_samples = os.environ.get("INCENTIVES_AI_SAMPLES", "").strip()
+SAMPLES = int(_samples) if _samples.isdigit() and int(_samples) > 0 else 2
 
 SYSTEM = (
     "You extract exact commercial & industrial energy-efficiency incentive rates "
