@@ -122,17 +122,24 @@ def available():
     return True
 
 
-_NUM = re.compile(r"\d+(?:\.\d+)?")
+# Match a dollar amount specifically ($0.15, $2, $1,500, $ 200) -- the per-unit
+# *rate* the incentive pays. We deliberately do NOT match bare numbers: rate sheets
+# are full of eligibility thresholds (25-75 hp, <=500 scfm, 2 gal/scfm) and percent
+# caps (70% of cost) that two reads categorize inconsistently and that are not the
+# rate. Comparing only the paid dollar amounts is the thing that must be exact.
+_MONEY = re.compile(r"\$\s?(\d[\d,]*(?:\.\d+)?)")
 
 
 def _sig(figures):
-    """Normalized numeric signature of a 'figures_found' list: the multiset of
-    numbers it mentions, order-independent. Two extractions with the same signature
-    found the same dollar amounts (formatting/whitespace aside)."""
-    nums = []
+    """Normalized dollar-amount signature of a 'figures_found' list: the sorted
+    multiset of $ amounts it mentions, order-independent. Two extractions with the
+    same signature agree on every per-unit rate paid (thresholds/caps/formatting
+    aside). A real transposition ($6/hp vs $8/hp) still changes the signature."""
+    amounts = []
     for f in figures or []:
-        nums.extend(_NUM.findall(str(f).replace(",", "")))
-    return tuple(sorted(nums, key=lambda x: (float(x), x)))
+        for m in _MONEY.findall(str(f)):
+            amounts.append(m.replace(",", ""))
+    return tuple(sorted(amounts, key=lambda x: (float(x), x)))
 
 
 def _download_pdf_b64(url):
@@ -183,15 +190,23 @@ def _extract_once(client, pdf_b64, program_name, admin):
         return None
 
 
-def extract_measure(source_doc, program_name, admin):
+def extract_measure(source_doc, program_name, admin, debug=False):
     """Extract + confidence-gate one incentive's rates from its source PDF.
 
     Returns a dict:
       {"confidence": "pass"|"fail", "reason": str, "fields": {...}|None, "samples": int}
     'fields' (on pass) carries the measure-shaped values ready to overlay onto a row.
+    With debug=True, a "runs" list of the raw per-read extractions is attached to the
+    result (used by the smoke test to show exactly what each read produced).
     Never raises -- any failure returns a "fail" result so the build continues.
     """
-    fail = lambda reason: {"confidence": "fail", "reason": reason, "fields": None, "samples": 0}
+    _runs_seen = []
+
+    def fail(reason):
+        res = {"confidence": "fail", "reason": reason, "fields": None, "samples": len(_runs_seen)}
+        if debug:
+            res["runs"] = _runs_seen
+        return res
 
     if anthropic is None:
         return fail("anthropic SDK not installed")
@@ -204,7 +219,7 @@ def extract_measure(source_doc, program_name, admin):
     except Exception as exc:
         return fail("no API credentials: " + str(exc))
 
-    runs = []
+    runs = _runs_seen
     for i in range(max(1, SAMPLES)):
         r = _extract_once(client, pdf_b64, program_name, admin)
         if r is not None:
@@ -258,9 +273,12 @@ def extract_measure(source_doc, program_name, admin):
         "effective_date": r["effective_date"].strip(),
         "figures": list(r.get("figures_found") or []),
     }
-    return {
+    res = {
         "confidence": "pass",
-        "reason": "agreed across " + str(len(runs)) + " passes; " + str(len(signature)) + " figures",
+        "reason": "agreed across " + str(len(runs)) + " passes; " + str(len(signature)) + " $ amounts",
         "fields": fields,
         "samples": len(runs),
     }
+    if debug:
+        res["runs"] = runs
+    return res

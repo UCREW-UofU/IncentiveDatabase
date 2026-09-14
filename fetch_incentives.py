@@ -1517,7 +1517,19 @@ def _ai_smoke_test():
     name = "wattsmart Business -- Compressed Air System Optimization (calculated)"
     print("\nModel:  " + extractor.MODEL + " (" + str(extractor.SAMPLES) + " reads)")
     print("PDF:    " + pdf + "\n")
-    result = extractor.extract_measure(pdf, name, "Rocky Mountain Power")
+    result = extractor.extract_measure(pdf, name, "Rocky Mountain Power", debug=True)
+
+    # Always show what each read produced -- pass or fail -- so the run is never
+    # opaque. This is what tells a real rate discrepancy from comparison noise.
+    runs = result.get("runs") or []
+    for i, run in enumerate(runs, start=1):
+        figs = run.get("figures_found") or []
+        print("Read " + str(i) + ": confident=" + str(run.get("confident"))
+              + " | effective=" + str(run.get("effective_date") or "-")
+              + " | $ signature=" + str(list(extractor._sig(figs))))
+        print("        figures_found: " + (", ".join(figs) if figs else "(none)"))
+    print("")
+
     print("Verdict: " + result["confidence"].upper() + " -- " + result.get("reason", ""))
     f = result.get("fields")
     if f:
@@ -1532,15 +1544,9 @@ def _ai_smoke_test():
         print("  figures_found:  " + ", ".join(f.get("figures", [])))
         print("\nEyeball these against the PDF above. If they match, the pipeline works.")
     else:
-        # If the gate failed on disagreement, show each read's figures so we can
-        # see whether the difference is a real rate discrepancy or noise.
-        by_run = result.get("figures_by_run")
-        if by_run:
-            print("\nFigures each read reported (for diagnosis):")
-            for i, figs in enumerate(by_run, start=1):
-                print("  read " + str(i) + ": " + (", ".join(figs) if figs else "(none)"))
         print("\nNo values returned (gate not passed). This is the SAFE failure mode --")
         print("in a real run the row would stay a 'general' stub, not publish a guess.")
+        print("(The per-read figures above show why.)")
 
 
 def _print_ai_dry_run(rows):
