@@ -131,14 +131,17 @@ _MONEY = re.compile(r"\$\s?(\d[\d,]*(?:\.\d+)?)")
 
 
 def _sig(figures):
-    """Normalized dollar-amount signature of a 'figures_found' list: the sorted
-    multiset of $ amounts it mentions, order-independent. Two extractions with the
+    """Normalized dollar-amount signature of a 'figures_found' list: the sorted SET
+    of distinct $ amounts it mentions, order-independent. Two extractions with the
     same signature agree on every per-unit rate paid (thresholds/caps/formatting
-    aside). A real transposition ($6/hp vs $8/hp) still changes the signature."""
-    amounts = []
+    aside). Distinct, not a multiset, on purpose: rate sheets often pay the same rate
+    for several measures (e.g. two compressed-air measures at $2/scfm), and one read
+    listing that rate once while another lists it per-measure is not a disagreement
+    about the rate. A real transposition ($6/hp vs $8/hp) still changes the set."""
+    amounts = set()
     for f in figures or []:
         for m in _MONEY.findall(str(f)):
-            amounts.append(m.replace(",", ""))
+            amounts.add(m.replace(",", ""))
     return tuple(sorted(amounts, key=lambda x: (float(x), x)))
 
 
