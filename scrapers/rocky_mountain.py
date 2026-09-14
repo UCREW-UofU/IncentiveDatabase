@@ -122,6 +122,8 @@ MEASURES = [
     # ---- Compressed air (rate confirmed from the RMP wattsmart application) ----
     {
         "name": "wattsmart Business -- VFD Air Compressor (<=75 hp)",
+        "desc": "A rebate for adding a variable-speed drive to a small air compressor (<=75 hp) "
+                "so it matches output to demand instead of running full-tilt.",
         "tech": "Compressed Air / VFD",
         "value": "$0.15/kWh of annual energy savings",
         "max": "By estimated annual savings",
@@ -134,11 +136,9 @@ MEASURES = [
         "url": URL["compressed_air"],
         "source_doc": PDF["compressed_air"],
         "verified": "2026-08-31",
-        "notes": "Incentive is paid at $0.15 per kWh of annual energy savings. Program staff provide "
-                 "the energy savings estimate; subject to Rocky Mountain Power approval. Qualifying unit "
-                 "is a variable-frequency-drive oil-injected screw compressor in a system of <=75 hp total "
-                 "(all compressors combined, not counting backup capacity) that adjusts speed as the "
-                 "primary means of capacity control.",
+        "notes": "RMP staff estimate the annual kWh savings (subject to approval). Qualifying unit is a "
+                 "VFD oil-injected screw compressor in a <=75 hp total system (all compressors combined, "
+                 "excluding backup) that uses speed as its primary means of capacity control.",
         "impl": "1. Get an incentive application package from Rocky Mountain Power (1-866-870-3419) or a "
                 "wattsmart Business Trade Ally. 2. Confirm the system qualifies (<=75 hp total, VFD primary "
                 "capacity control). 3. Purchase and install the qualifying VFD screw compressor. 4. Submit "
@@ -155,6 +155,8 @@ MEASURES = [
     },
     {
         "name": "wattsmart Business -- Compressed Air System Optimization (calculated)",
+        "desc": "Prescriptive rebates for compressed-air upgrades -- efficient filters, added "
+                "storage, cycling dryers, no-loss drains -- plus paid savings for cutting air use.",
         "tech": "Compressed Air",
         "value": "Prescriptive: $2/scfm, $3/gal, $6/hp, $100/drain; end-use reduction $0.15/kWh",
         "max": "70% of project cost",
@@ -174,14 +176,10 @@ MEASURES = [
         "url": URL["compressed_air"],
         "source_doc": PDF["compressed_air"],
         "verified": "2026-08-31",
-        "notes": "Prescriptive compressed-air measures beyond the <=75 hp VFD compressor. Exact per-unit "
-                 "amounts: low-pressure-drop filter $2/scfm (system 25-75 hp, discharge pressure cut >=2 psi); "
-                 "receiver capacity addition $3/gallon above 2 gal/scfm of trim capacity (trim must be "
-                 "load/unload, not VFD/modulating); cycling refrigerated dryer $2/scfm (<=500 scfm); zero-loss "
-                 "condensate drain $100 each (any size); outside-air intake ductwork $6/hp. Compressed-air "
-                 "end-use reduction (functionally equivalent alternatives / isolation valves) is calculated at "
-                 "$0.15/kWh of annual savings, any system size. Max incentive rates are set by the Utah PSC "
-                 "Schedule 140 tariff.",
+        "notes": "Measures beyond the <=75 hp VFD compressor. Each has specific eligibility limits (system "
+                 "hp, trim-control type, scfm caps) on the rate sheet; zero-loss drains and end-use reduction "
+                 "have no size limit. Receiver trim must be load/unload, not VFD/modulating. End-use reduction "
+                 "is paid on estimated annual kWh, approved by RMP.",
         "impl": "1. Contact Rocky Mountain Power or a Trade Ally for a compressed-air assessment. 2. Identify "
                 "qualifying prescriptive measures (filter, receiver, dryer, drains, outside-air intake) and/or "
                 "end-use reductions. 3. Confirm each measure's limitations (system hp, trim control type, scfm "
@@ -198,6 +196,7 @@ MEASURES = [
     # ---- HVAC ----
     {
         "name": "wattsmart Business -- HVAC / Heat Pump",
+        "desc": "Per-ton rebates for installing high-efficiency commercial air conditioners and heat pumps.",
         "tech": "Heat Pump / HVAC",
         "value": "$50-$100/ton (AC); heat pumps $50-$300/ton; VRF $1,000/head or $125/ton",
         "max": "Per ton of cooling capacity (heat pumps: cooling tons only)",
@@ -220,13 +219,11 @@ MEASURES = [
         "url": URL["hvac"],
         "source_doc": PDF["hvac"],
         "verified": "2026-08-31",
-        "notes": "Prescriptive per-ton incentives for high-efficiency commercial HVAC and heat pumps "
-                 "(retrofit/major renovation). Amounts are fixed per ton of AHRI-rated net cooling capacity "
-                 "and depend on the CEE efficiency tier the equipment meets. Heat pumps pay per COOLING ton "
-                 "only (must meet both cooling- and heating-mode efficiency). Air-cooled heat-pump CONVERSION "
-                 "(replacing non-heat-pump equipment) pays the most at $300/ton. Note: evaporative cooling, "
-                 "advanced rooftop-unit controls (ARC), and HVAC tune-ups/check-ups have their own separate "
-                 "incentive sheets on the RMP HVAC page. Max rates set by the Utah PSC Schedule 140 tariff.",
+        "notes": "Retrofit / major renovation. Amounts are per ton of AHRI-rated net cooling capacity and "
+                 "depend on the equipment's CEE tier. Heat pumps pay per COOLING ton only (and must meet both "
+                 "cooling- and heating-mode efficiency); air-cooled heat-pump conversions from non-heat-pump "
+                 "equipment pay the most. Evaporative cooling, advanced RTU controls, and HVAC tune-ups have "
+                 "their own separate incentive sheets.",
         "impl": "1. Contact Rocky Mountain Power (1-866-870-3419) or a Trade Ally. 2. Select equipment meeting "
                 "the CEE tier / ENERGY STAR / EER+COP minimum for its size class. 3. Get bids from licensed "
                 "HVAC contractors. 4. Install and submit the application with invoices and AHRI equipment "
@@ -243,6 +240,8 @@ MEASURES = [
     # (UT wattsmart Business lighting catalog, effective 7/11/2025, v4/8/2026).
     {
         "name": "wattsmart Business -- Express Lighting Retrofit (Prescriptive, per watt installed)",
+        "desc": "A fast, fixed per-watt rebate for straightforward like-for-like LED lighting "
+                "swaps with no controls.",
         "tech": "LED Lighting",
         "value": "$0.75-$1.75/W installed (interior); $1.20/W installed (exterior)",
         "max": "70% of project cost",
@@ -260,10 +259,9 @@ MEASURES = [
         "url": URL["lighting"],
         "source_doc": PDF["lighting_express"],
         "verified": "2026-08-31",
-        "notes": "Prescriptive 'Express' path for straightforward LED retrofits: a fixed dollar amount per "
-                 "watt INSTALLED, no engineering study. For like-for-like fixture/retrofit-kit swaps only, "
-                 "with no existing lighting controls. Parking garages and areas under parking decks count as "
-                 "interior (IECC 2021); top decks are exterior. " + LIGHTING_CALCULATOR_NOTE,
+        "notes": "Like-for-like fixture/retrofit-kit swaps only, with no existing controls (use the "
+                 "Calculated path otherwise). Parking garages and areas under parking decks count as interior; "
+                 "top decks are exterior. " + LIGHTING_CALCULATOR_NOTE,
         "impl": "1. Confirm the job is a like-for-like retrofit with no existing controls (else use the "
                 "Calculated offer). 2. Choose qualified make/model fixtures from RMP's Qualified Lighting "
                 "Equipment lists. 3. Enter the make/model into RMP's lighting calculator tool to get the "
@@ -280,6 +278,8 @@ MEASURES = [
     # (Non-Prescriptive)" tables, same catalog (effective 7/11/2025, v4/8/2026).
     {
         "name": "wattsmart Business -- Calculated Lighting System Retrofit (Non-Prescriptive, per watt reduced)",
+        "desc": "The engineered lighting path -- pays per watt saved or controlled for LED "
+                "projects with controls or scopes that don't fit the simple Express swap.",
         "tech": "LED Lighting",
         "value": "$0.15-$1.20/W reduced (interior); $0.10-$0.70/W (exterior); CEA $0.03-$0.05/kWh",
         "max": "70% of project cost",
@@ -313,11 +313,9 @@ MEASURES = [
         "url": URL["lighting"],
         "source_doc": PDF["lighting_calc"],
         "verified": "2026-08-31",
-        "notes": "The engineered/calculated lighting path -- used for anything with controls, street, "
-                 "seasonal, CEA (grow lights), or non-like-for-like scopes. New fixtures pay on watts "
-                 "REDUCED vs. the existing/baseline system; controls-only measures pay on watts CONTROLLED. "
-                 "Higher control tiers (plug-and-play -> networked -> luminaire-level/LLLC) pay progressively "
-                 "more. " + LIGHTING_CALCULATOR_NOTE,
+        "notes": "Used for anything with controls, street, seasonal, CEA (grow lights), or non-like-for-like "
+                 "scopes. New fixtures pay on watts REDUCED vs. the baseline; controls-only pays on watts "
+                 "CONTROLLED; higher control tiers pay more. " + LIGHTING_CALCULATOR_NOTE,
         "impl": "1. Assess the space and pick the control strategy (drives which rate tier applies). "
                 "2. Enter qualified make/model numbers into RMP's lighting calculator tool to get the "
                 "Stipulated watts reduced/controlled. 3. Submit the Non-Prescriptive application with the "
@@ -334,6 +332,8 @@ MEASURES = [
     # ---- Building envelope ----
     {
         "name": "wattsmart Business -- Building Envelope (Insulation / Cool Roof)",
+        "desc": "Per-square-foot rebates for adding insulation, high-performance windows, or a "
+                "cool roof to a mechanically cooled building.",
         "tech": "Insulation / Weatherization",
         "value": "Insulation $0.30-$0.40/sq ft; windows $1.00/sq ft; cool roof $0.04/sq ft",
         "max": "Per square foot (window film paid per kWh)",
@@ -351,12 +351,9 @@ MEASURES = [
         "url": URL["envelope"],
         "source_doc": PDF["envelope"],
         "verified": "2026-08-31",
-        "notes": "Prescriptive per-square-foot envelope retrofits (building must have mechanical cooling). "
-                 "Roof/attic insulation $0.40/sq ft and wall insulation $0.30/sq ft are paid per R-10 increment "
-                 "of insulation added. High-performance windows (U-factor <=0.30, SHGC <=0.33) pay $1.00/sq ft "
-                 "of the entire window assembly. Cool roofs meeting the Green Globes SRI pay $0.04/sq ft. "
-                 "Window film is calculated at $0.15/kWh. This is the retrofit sheet; new construction / major "
-                 "renovation has its own envelope incentives. Max rates set by the Utah PSC Schedule 140 tariff.",
+        "notes": "Building must be mechanically cooled. Insulation must add at least an R-10 increment; window "
+                 "square footage is the whole assembly (not just glass); skylights aren't eligible. This is "
+                 "the retrofit sheet -- new construction / major renovation has its own envelope incentives.",
         "impl": "1. Obtain contractor bids and NFRC/R-value documentation. 2. Complete installation (add at "
                 "least an R-10 increment for insulation measures). 3. Submit the building-envelope application "
                 "with invoices, photos, and R-value / window ratings.",
@@ -369,6 +366,8 @@ MEASURES = [
     # ---- Appliances / plug load ----
     {
         "name": "wattsmart Business -- Appliances & Office Equipment",
+        "desc": "Small fixed rebates for efficient plug-load gear -- smart power strips, "
+                "engine-block-heater controls, and commercial clothes washers.",
         "tech": "Appliances / Plug Load",
         "value": "Smart plug strip $5; engine block heater control $125; commercial clothes washer $100",
         "max": "Per qualifying unit",
@@ -385,12 +384,10 @@ MEASURES = [
         "url": URL["appliances"],
         "source_doc": PDF["appliances"],
         "verified": "2026-08-31",
-        "notes": "Office and other plug-load equipment: smart plug strips that cut idle/standby power ($5/unit), "
-                 "thermostatically-controlled engine block heater controls ($125/unit), and high-efficiency "
-                 "commercial clothes washers ($100, ENERGY STAR with electric water heating and/or electric "
-                 "dryer). NOTE: commercial refrigeration controls are under the Wastewater & Other Refrigeration "
-                 "and Food Service measures, not here. Residential appliances used in a business use wattsmart "
-                 "Homes (Schedule 111). Max rates set by the Utah PSC Schedule 140 tariff.",
+        "notes": "Equipment must be on RMP's Qualified Product List. Clothes washers must be ENERGY STAR with "
+                 "electric water heating and/or an electric dryer. Commercial refrigeration controls are under "
+                 "the Food Service and Wastewater & Other Refrigeration measures, not here. Residential "
+                 "appliances used in a business use the wattsmart Homes program (Schedule 111).",
         "impl": "1. Confirm the unit is on RMP's Qualified Product List. 2. Purchase and install. 3. Submit the "
                 "office/appliance application with proof of purchase and model numbers.",
         "meth": "Rebate is a fixed amount per qualifying unit (plug strip, block heater control, or washer).",
@@ -400,6 +397,8 @@ MEASURES = [
     # ---- Motors & VFDs ----
     {
         "name": "wattsmart Business -- Motors & VFDs (Pumps / Fans)",
+        "desc": "Per-horsepower rebates for variable-speed drives on HVAC fans and pumps, and "
+                "for efficient ECM motors.",
         "tech": "Motors & Drives / VFD",
         "value": "VFD (HVAC fans/pumps) $200/hp; ECM $200/hp or $3/watt",
         "max": "By motor hp / ECM watts",
@@ -416,13 +415,10 @@ MEASURES = [
         "url": URL["motors"],
         "source_doc": PDF["motors"],
         "verified": "2026-08-31",
-        "notes": "Prescriptive per-hp incentives for variable-frequency drives on HVAC fans and pumps up to "
-                 "100 hp ($200/hp) and for electronically commutated motors (ECM retrofits). ECM: $3/watt for "
-                 "<=1 hp refrigeration applications, $200/hp for HVAC applications (<=10 hp). To qualify, VFDs "
-                 "must serve a genuinely variable load and any throttling/bypass devices must be removed; VFDs "
-                 "installed to meet energy code are not eligible. NOTE: compressed-air VFDs are not paid here -- "
-                 "they use the compressed-air program at $0.15/kWh. Larger/process motors and non-HVAC VFDs go "
-                 "through the Custom/Calculated program. Max rates set by the Utah PSC Schedule 140 tariff.",
+        "notes": "VFDs must serve a genuinely variable load, with any throttling/bypass devices removed; "
+                 "VFDs installed to meet energy code aren't eligible. ECM is retrofit only. Compressed-air "
+                 "VFDs are paid under the compressed-air program instead; larger/process motors and non-HVAC "
+                 "VFDs go through the Custom/Calculated program.",
         "impl": "1. Identify HVAC fans/pumps with variable load suited to a VFD, or refrigeration/HVAC motors "
                 "suited to an ECM retrofit. 2. Confirm eligibility (remove throttling/bypass; not code-required; "
                 "ECM is retrofit-only). 3. Install. 4. Submit the application with motor nameplate hp/watts and "
@@ -436,6 +432,8 @@ MEASURES = [
     # ---- Food service ----
     {
         "name": "wattsmart Business -- Commercial Food Service Equipment",
+        "desc": "Fixed rebates for ENERGY STAR commercial kitchen equipment, plus refrigeration "
+                "anti-sweat heaters and demand-controlled kitchen ventilation.",
         "tech": "Food Service / Refrigeration",
         "value": "Per-unit ENERGY STAR amounts ($100-$1,000); anti-sweat $16-$20/ft; DCKV $0.15/kWh",
         "max": "Per qualifying appliance / measure",
@@ -456,13 +454,10 @@ MEASURES = [
         "url": URL["foodservice"],
         "source_doc": PDF["foodservice"],
         "verified": "2026-08-31",
-        "notes": "Fixed per-unit incentives for ENERGY STAR commercial kitchen equipment plus two refrigeration/"
-                 "ventilation retrofit measures. Commercial high-temperature dishwashers with electric boosters "
-                 "$100-$500 by type; electric insulated holding cabinets $400-$1,000 by size; steam cookers "
-                 "$600; combination ovens $700; convection ovens $350/$200; fryers/griddles $300; air-cooled "
-                 "ice machines $125-$150. Anti-sweat heater controls pay per linear foot of case ($20 low-temp, "
-                 "$16 mid-temp); demand-controlled kitchen ventilation hoods pay $0.15/kWh. Max rates set by "
-                 "the Utah PSC Schedule 140 tariff.",
+        "notes": "Equipment must be ENERGY STAR qualified for its category. Anti-sweat heater controls and "
+                 "demand-controlled kitchen ventilation are retrofit-only (DCKV hoods pay on estimated kWh, "
+                 "approved by RMP). Residential units used in a business use the wattsmart Homes program "
+                 "(Schedule 111).",
         "impl": "1. Select ENERGY STAR-qualified equipment (or the qualifying retrofit control). 2. Purchase "
                 "and install. 3. Submit the food-service application with proof of purchase and model numbers "
                 "(DCKV hoods require a savings estimate approved by RMP).",
@@ -475,6 +470,8 @@ MEASURES = [
     # ---- Agriculture / irrigation ----
     {
         "name": "wattsmart Business -- Irrigation (Sprinklers, Nozzles, Pump VFD)",
+        "desc": "Rebates for irrigation efficiency -- sprinkler and nozzle hardware, low-pressure "
+                "pivot conversions, and pump variable-speed drives.",
         "tech": "Irrigation / Agricultural",
         "value": "Sprinklers/nozzles $0.50-$2 ea; pivot drops $2-$7; pump VFD $0.15/kWh",
         "max": "Per unit / per drop; pump VFD per kWh",
@@ -496,13 +493,10 @@ MEASURES = [
         "url": URL["agriculture"],
         "source_doc": PDF["irrigation"],
         "verified": "2026-08-31",
-        "notes": "RMP's Water Distribution & Irrigation sheet. Wheel/hand/portable-line hardware pays small "
-                 "per-unit amounts (sprinklers $0.50, nozzles $1.50, gaskets/drains $2, levelers $1, pipe "
-                 "repairs $8), capped at 2 units per irrigated acre. Pivot/linear sprinkler swaps pay per drop, "
-                 "with the biggest amounts for moving high-pressure to low-pressure MESA/LESA/LEPA/MDI packages "
-                 "($5-$7/drop). Adding a VFD to any electric irrigation pump pays $0.15/kWh (retrofit or new). "
-                 "Only electric-pump systems qualify; solid-set systems are excluded from hardware measures. "
-                 "Max rates set by the Utah PSC Schedule 140 tariff.",
+        "notes": "Electric-pump systems only (not diesel/gravity). Hardware measures are retrofit-only and "
+                 "capped at 2 units per irrigated acre; solid-set systems are excluded from hardware. Pivot/"
+                 "linear swaps pay the most for moving high-pressure to low-pressure MESA/LESA/LEPA/MDI "
+                 "packages. Pump VFDs qualify on retrofit or new construction and pay on estimated kWh.",
         "impl": "1. Get an irrigation incentive application from RMP or a Trade Ally. 2. Identify qualifying "
                 "measures (replace worn hardware like-for-like at same or lower flow; upgrade pivot packages; "
                 "add a pump VFD). 3. Install. 4. Submit the application with invoices (rebuild kits itemized). "
@@ -515,6 +509,8 @@ MEASURES = [
     },
     {
         "name": "wattsmart Business -- Farm & Dairy Equipment",
+        "desc": "Rebates for efficient farm and dairy gear -- circulating and ventilation fans, "
+                "vacuum-pump drives, and milk-cooling heat recovery.",
         "tech": "Agricultural / Motors",
         "value": "Circulating fans $25-$75; ventilation fans $45-$150; vacuum-pump VFD $165/hp",
         "max": "Per fan / per hp; heat recovery & pre-cooler per kWh",
@@ -534,12 +530,9 @@ MEASURES = [
         "url": URL["agriculture"],
         "source_doc": PDF["farm_dairy"],
         "verified": "2026-08-31",
-        "notes": "RMP's Farm & Dairy Equipment sheet. High-efficiency circulating and ventilation fans pay a "
-                 "fixed amount per fan that scales with diameter (circulating $25-$75; ventilation $45-$150), "
-                 "provided the fan meets the lbf/kW or cfm/W efficiency minimum for its size. Programmable "
-                 "ventilation controllers pay $20 per fan controlled. A VFD on a dairy vacuum pump pays $165/hp "
-                 "(retrofit only). Milk-cooling heat recovery and milk pre-coolers are calculated at $0.15/kWh. "
-                 "Max rates set by the Utah PSC Schedule 140 tariff.",
+        "notes": "Fans must meet the lbf/kW (circulating) or cfm/W (ventilation) efficiency minimum for their "
+                 "size and be AMCA-rated. Dairy vacuum-pump VFDs and milk pre-coolers are retrofit-only; heat "
+                 "recovery and pre-coolers require electric water heating and pay on estimated kWh.",
         "impl": "1. Get a farm/dairy incentive application from RMP or a Trade Ally. 2. Select qualifying "
                 "equipment (fans meeting the efficiency minimum, controllers, vacuum-pump VFD, heat recovery). "
                 "3. Install. 4. Submit the application with invoices and fan efficiency ratings. 5. Receive "
@@ -553,6 +546,8 @@ MEASURES = [
     # ---- Wastewater / process ----
     {
         "name": "wattsmart Business -- Wastewater & Other Refrigeration",
+        "desc": "Pays per kWh saved for adaptive refrigeration controls, fast-acting cold-storage "
+                "doors, and low-power wastewater mixers.",
         "tech": "Refrigeration / Process",
         "value": "$0.15/kWh annual energy savings (all measures)",
         "max": "70% of project cost",
@@ -570,13 +565,10 @@ MEASURES = [
         "url": URL["wastewater"],
         "source_doc": PDF["wastewater"],
         "verified": "2026-08-31",
-        "notes": "The RMP 'Wastewater and Other Refrigeration' sheet -- three calculated measures each paid at "
-                 "$0.15/kWh of annual savings: adaptive refrigeration controllers (replacing conventional "
-                 "defrost/fan/TXV controls, sometimes with an electric expansion valve), fast-acting cold-"
-                 "storage doors, and low-power wastewater mixers/circulators that replace excess aeration. "
-                 "Larger wastewater aeration/blower and dissolved-oxygen-control projects that aren't one of "
-                 "these prescriptive measures go through the Custom/Calculated program instead. Max rates set "
-                 "by the Utah PSC Schedule 140 tariff.",
+        "notes": "Three calculated measures, each paid on RMP-approved annual kWh savings: adaptive "
+                 "refrigeration controls, fast-acting cold-storage doors, and low-power wastewater mixers "
+                 "that replace excess aeration. Larger aeration/blower or dissolved-oxygen-control projects "
+                 "go through the Custom/Calculated program instead.",
         "impl": "1. Identify the qualifying measure (adaptive refrigeration control, fast-acting door, or "
                 "low-power mixer). 2. Submit the application with a savings analysis. 3. RMP reviews/approves "
                 "the estimate. 4. Install and submit invoices. 5. Receive incentive (capped at 70% of cost).",
@@ -588,6 +580,7 @@ MEASURES = [
     # ---- Oil & gas ----
     {
         "name": "wattsmart Business -- Oil & Gas Field Efficiency",
+        "desc": "A flat $1,500 rebate for adding a pump-off controller to an existing oil or gas well.",
         "tech": "Process / Controls",
         "value": "Pump-off controller $1,500 per controller",
         "max": "70% of project cost",
@@ -599,11 +592,9 @@ MEASURES = [
         "url": URL["oil_gas"],
         "source_doc": PDF["oil_gas"],
         "verified": "2026-08-31",
-        "notes": "RMP's oil & gas prescriptive sheet lists one measure: a pump-off controller added to an "
-                 "existing oil or gas well pays $1,500 per controller. Other field-efficiency measures (VFDs "
-                 "and efficient motors on pump jacks, compressors, and pumps) are not on this prescriptive "
-                 "sheet -- they go through the Motors/VFD or Custom/Calculated programs. Max rates set by the "
-                 "Utah PSC Schedule 140 tariff.",
+        "notes": "The prescriptive sheet lists only the pump-off controller. Other field measures (VFDs and "
+                 "efficient motors on pump jacks, compressors, and pumps) go through the Motors/VFD or "
+                 "Custom/Calculated programs.",
         "impl": "1. Identify wells suited to a pump-off controller. 2. Install the controller. 3. Submit the "
                 "oil & gas application with invoices. 4. Receive $1,500 per controller (capped at 70% of cost).",
         "meth": "Incentive = number of qualifying pump-off controllers x $1,500 each.",
@@ -613,6 +604,8 @@ MEASURES = [
     # ---- Whole-building new construction / major renovation ----
     {
         "name": "wattsmart Business -- Whole-Building New Construction / Major Renovation",
+        "desc": "For new buildings and major renovations -- a whole-building incentive that grows "
+                "with how far the design beats energy code.",
         "tech": "Multiple Technologies",
         "value": "Whole-building performance incentive by modeled savings",
         "max": "Varies",
@@ -622,9 +615,9 @@ MEASURES = [
         "baseline": "ASHRAE 90.1 / Utah energy code reference building",
         "minp": "New construction or major renovation; energy modeling required",
         "url": URL["wbnc"],
-        "notes": "For new construction and major renovations: a whole-building performance-path incentive scaled "
-                 "to modeled energy savings beyond code, plus access to prescriptive measures. Also a system-by-"
-                 "system path for individual upgrades. Confirm current incentive structure on RMP's WBNC page.",
+        "notes": "A whole-building performance-path incentive scaled to modeled savings beyond code, plus "
+                 "access to prescriptive measures and a system-by-system path for individual upgrades. "
+                 "Confirm the current incentive structure on RMP's WBNC page.",
         "impl": "1. Engage RMP early in design. 2. Model the building vs. ASHRAE 90.1 / Utah code. 3. Choose the "
                 "whole-building performance path or system-by-system prescriptive measures. 4. Submit the "
                 "application with modeling. 5. Build and verify. 6. Receive incentive.",
@@ -636,6 +629,8 @@ MEASURES = [
     # ---- Battery storage (separate wattsmart Battery / dispatch program) ----
     {
         "name": "wattsmart Battery -- Commercial Battery Storage (dispatch)",
+        "desc": "Pays per kW to let the utility dispatch your commercial battery as part of a "
+                "virtual power plant.",
         "tech": "Energy Storage / Battery",
         "value": "Per kW of battery capacity (upfront + annual bill credit)",
         "max": "Scales with enrolled battery kW",
@@ -646,12 +641,10 @@ MEASURES = [
         "baseline": "Battery power capacity (kW) enrolled for utility dispatch",
         "minp": "Enroll the battery in RMP's dispatch program; solar or solar+battery may be required",
         "url": URL["battery"],
-        "notes": "Rocky Mountain Power's wattsmart Battery program pays an incentive based on battery size (kW) "
-                 "in exchange for letting the utility dispatch the battery (a virtual power plant). Published "
-                 "residential terms are about $150/kW for each committed year plus a $15/kW annual bill credit; "
-                 "commercial terms are set by RMP and were updated in 2026 -- confirm the current commercial "
-                 "$/kW, term length, and eligibility (solar/solar+battery requirement). Stacks with the 30% "
-                 "federal storage ITC, which is usually the larger incentive when buying a battery.",
+        "notes": "Pays a $/kW incentive (upfront plus an annual bill credit) in exchange for utility dispatch. "
+                 "Commercial terms are set by RMP and were updated in 2026 -- confirm the current $/kW, term "
+                 "length, and any solar / solar+battery requirement. Stacks with the 30% federal storage ITC, "
+                 "usually the larger incentive when buying a battery.",
         "impl": "1. Contact Rocky Mountain Power (or a participating battery installer) about wattsmart Battery "
                 "enrollment. 2. Confirm eligibility and current commercial $/kW and term. 3. Install a qualifying "
                 "battery and enroll it for dispatch. 4. Receive the upfront incentive and ongoing annual bill "
@@ -666,6 +659,8 @@ MEASURES = [
     # ---- Custom catch-all (only for measures with no prescriptive rate) ----
     {
         "name": "wattsmart Business -- Custom / Calculated Projects (Industrial)",
+        "desc": "The catch-all path for efficiency projects with no set rebate -- pays per kWh of "
+                "verified savings, ideal for industrial process loads.",
         "tech": "Multiple Technologies",
         "value": "$0.08-0.12/kWh verified first-year savings",
         "max": "Custom",
@@ -675,9 +670,9 @@ MEASURES = [
         "baseline": "IPMVP Option A/B/C measured baseline",
         "minp": "Typically ~$5,000 in annual energy savings",
         "url": URL["business"],
-        "notes": "For non-prescriptive measures not covered by a published per-unit/per-kWh amount -- ideal "
-                 "for industrial process loads and whole-system projects. If a measure has a prescriptive "
-                 "rate (e.g. the $0.15/kWh compressed-air program), use that instead for a more accurate value.",
+        "notes": "For measures with no published prescriptive rate -- industrial process loads and "
+                 "whole-system projects. If a measure does have a prescriptive rate (e.g. the $0.15/kWh "
+                 "compressed-air program), use that instead for a more accurate value.",
         "impl": "1. Contact the Rocky Mountain Power business team. 2. Submit a pre-approval application with "
                 "an energy-savings analysis (modeling or M&V plan). 3. Await approval (2-4 weeks). 4. Implement. "
                 "5. Submit post-installation M&V. 6. Receive rebate.",
@@ -700,6 +695,7 @@ def _measures():
             notes=m["notes"], implementation=m["impl"], methodology=m["meth"],
             example=m["example"], incentive_rate=m["rate"], rebate_tiers=m["tiers"],
             unit_cap=m["cap"], baseline=m["baseline"], min_project=m["minp"],
+            description=m.get("desc", ""),
             key=key,
             detail_level=("detailed" if detailed else "general"),
             verified_date=(m.get("verified", VERIFIED_DATE) if detailed else ""),

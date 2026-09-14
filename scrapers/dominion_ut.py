@@ -25,6 +25,8 @@ def fetch_all():
 def _business():
     programs = [
         (
+            "Pays commercial gas customers per therm saved for custom natural-gas "
+            "efficiency projects verified by measurement.",
             "ThermWise Business -- Custom Rebates", "Multiple Technologies",
             "Custom calculation per therm saved", "Custom",
             "$0.50-1.00/therm verified savings",
@@ -36,6 +38,8 @@ def _business():
             "Example: A commercial laundry in Draper, UT replaces natural gas boilers with condensing units (96% efficiency vs. 80%). Annual therm savings: 2,400 therms. Rebate: 2,400 x $0.75 = $1,800. New boilers: $18,000 installed. Annual gas savings: 2,400 x $0.85/therm = $2,040. Payback after rebate: ~7.9 years.",
         ),
         (
+            "A rebate for replacing an older commercial gas boiler with a "
+            "high-efficiency condensing unit (90%+ efficiency).",
             "ThermWise Business -- Gas Boiler Replacement", "HVAC / Boiler",
             "Varies by efficiency gain", "Varies",
             "Prescriptive per therm saved",
@@ -49,7 +53,7 @@ def _business():
         ),
     ]
     rows = []
-    for (name, tech, value, max_b, rate, tiers, cap, baseline, minp,
+    for (desc, name, tech, value, max_b, rate, tiers, cap, baseline, minp,
          recip, exp, notes, impl, meth, ex) in programs:
         key = make_key(UTIL, name)
         detailed = key in DETAILED_KEYS
@@ -58,6 +62,7 @@ def _business():
             notes=notes, implementation=impl, methodology=meth, example=ex,
             incentive_rate=rate, rebate_tiers=tiers, unit_cap=cap,
             baseline=baseline, min_project=minp,
+            description=desc,
             key=key,
             detail_level=("detailed" if detailed else "general"),
             verified_date="", source_doc=DOMSAVINGS,

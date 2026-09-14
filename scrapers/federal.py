@@ -30,6 +30,8 @@ RECIP = "U.S. commercial, industrial, and agricultural taxpayers/businesses"
 PROGRAMS = [
     {
         "name": "Federal Investment Tax Credit -- Battery Storage (Section 48E)",
+        "desc": "A 30% federal tax credit on the installed cost of commercial battery storage "
+                "-- usually the largest single incentive when buying a battery.",
         "type": "Tax Credit",
         "tech": "Energy Storage / Battery",
         "value": "30% of installed cost",
@@ -38,12 +40,10 @@ PROGRAMS = [
         "baseline": "Standalone or paired battery energy storage >=3 kWh (commercial/business-owned)",
         "minp": "Battery capacity >=3 kWh; business/commercial owner",
         "url": "https://www.energy.gov/eere/solar/federal-solar-tax-credits-businesses",
-        "notes": "Section 48E Clean Electricity Investment Credit. Standalone or solar-paired battery "
-                 "storage of at least 3 kWh qualifies at a 30% base rate for commercial systems, available "
-                 "through 2032 before phase-down (26% in 2033, 22% in 2034). Domestic-content, energy-community, "
-                 "and low-income adders can raise it above 30%. This is typically the single largest incentive "
-                 "when buying a battery and stacks on top of utility programs. Tax law changes -- confirm current "
-                 "eligibility with a tax advisor.",
+        "notes": "Section 48E Clean Electricity Investment Credit. Standalone or solar-paired storage >=3 kWh "
+                 "qualifies at a 30% base rate, through 2032 before phase-down (26% in 2033, 22% in 2034). "
+                 "Domestic-content, energy-community, and low-income adders can raise it above 30%. Stacks on "
+                 "top of utility programs. Confirm current eligibility with a tax advisor.",
         "impl": "1. Confirm the battery is business-owned and >=3 kWh. 2. Install the qualifying system. "
                 "3. Document installed cost (equipment, labor, permitting) and any bonus-credit qualifications. "
                 "4. Claim the credit on the business's federal return (Form 3468). 5. Consider stacking with "
@@ -56,6 +56,7 @@ PROGRAMS = [
     },
     {
         "name": "Federal Investment Tax Credit -- Solar PV (Section 48E)",
+        "desc": "A 30% federal tax credit on the installed cost of a commercial solar PV system.",
         "type": "Tax Credit",
         "tech": "Solar PV",
         "value": "30% of installed cost",
@@ -64,10 +65,10 @@ PROGRAMS = [
         "baseline": "Commercial/business-owned solar photovoltaic system",
         "minp": "Business/commercial owner; begin-construction timing rules apply",
         "url": "https://www.energy.gov/eere/solar/federal-solar-tax-credits-businesses",
-        "notes": "Section 48E Clean Electricity Investment Credit for commercial solar PV at a 30% base rate, "
-                 "with domestic-content/energy-community/low-income adders. Begin-construction timing rules "
-                 "apply following the 2025 federal changes -- confirm current deadlines with a tax advisor. "
-                 "Pairs with battery storage (also 30%) and MACRS depreciation.",
+        "notes": "Section 48E Clean Electricity Investment Credit, 30% base, with domestic-content / "
+                 "energy-community / low-income adders. Begin-construction timing rules apply after the 2025 "
+                 "federal changes -- confirm deadlines with a tax advisor. Pairs with battery storage (also "
+                 "30%) and MACRS depreciation.",
         "impl": "1. Size the PV system and confirm commercial ownership. 2. Track begin-construction date and "
                 "domestic-content/energy-community status. 3. Install. 4. Claim on Form 3468. 5. Stack with "
                 "MACRS depreciation.",
@@ -77,6 +78,8 @@ PROGRAMS = [
     },
     {
         "name": "MACRS + Bonus Depreciation (Energy Property)",
+        "desc": "Lets a business write off solar, storage, and other energy equipment over just "
+                "five years, cutting its tax bill on top of the ITC.",
         "type": "Tax Deduction (Depreciation)",
         "tech": "Multiple Technologies",
         "value": "Accelerated 5-year depreciation of energy property",
@@ -85,11 +88,10 @@ PROGRAMS = [
         "baseline": "Depreciable basis = installed cost less one-half of any ITC claimed",
         "minp": "Business-owned depreciable energy property (solar, storage, efficient equipment)",
         "url": "https://www.energy.gov/eere/solar/federal-solar-tax-credits-businesses",
-        "notes": "Modified Accelerated Cost Recovery System lets businesses depreciate solar, storage, and other "
-                 "qualifying energy property over 5 years, with bonus depreciation phasing per current law. The "
-                 "depreciable basis is reduced by half the ITC claimed. Frequently stacked with the ITC to cut "
-                 "the net cost of a battery or solar project by an additional ~20-25%. Confirm current bonus "
-                 "percentage with a tax advisor.",
+        "notes": "Depreciate qualifying energy property over 5 years (plus any bonus depreciation per current "
+                 "law). The depreciable basis is reduced by half the ITC claimed. Frequently stacked with the "
+                 "ITC to cut a battery or solar project's net cost by another ~20-25%. Confirm the current "
+                 "bonus percentage with a tax advisor.",
         "impl": "1. Determine depreciable basis (installed cost minus half the ITC). 2. Apply 5-year MACRS "
                 "(plus any bonus depreciation) on the business return. 3. Coordinate with a tax advisor to "
                 "stack with the ITC.",
@@ -101,6 +103,8 @@ PROGRAMS = [
     },
     {
         "name": "179D Energy Efficient Commercial Buildings Deduction",
+        "desc": "A per-square-foot federal tax deduction for energy-efficient lighting, HVAC, "
+                "and envelope upgrades in commercial buildings.",
         "type": "Tax Deduction",
         "tech": "HVAC / Lighting / Envelope",
         "value": "Up to ~$5.81/sq ft (2025, inflation-indexed)",
@@ -109,10 +113,9 @@ PROGRAMS = [
         "baseline": "ASHRAE 90.1 reference building; % energy-cost reduction determines the rate",
         "minp": "Commercial building (or tax-exempt building via allocation to the designer)",
         "url": "https://www.energy.gov/eere/buildings/179d-commercial-buildings-energy-efficiency-tax-deduction",
-        "notes": "Section 179D deduction for energy-efficient commercial building upgrades to lighting, HVAC, and "
-                 "building envelope. The per-square-foot amount scales with modeled energy savings and whether "
-                 "prevailing-wage/apprenticeship requirements are met (higher tier). Amounts are inflation-indexed "
-                 "annually -- confirm the current-year figure. Applies to new construction and major retrofits.",
+        "notes": "The per-square-foot deduction scales with modeled energy savings and whether prevailing-wage "
+                 "/ apprenticeship requirements are met (higher tier). Amounts are inflation-indexed annually -- "
+                 "confirm the current-year figure. Applies to new construction and major retrofits.",
         "impl": "1. Model the building's energy-cost savings vs. ASHRAE 90.1. 2. Obtain the required third-party "
                 "certification. 3. Claim the per-sq-ft deduction on the business return (designers of tax-exempt "
                 "buildings may receive an allocation).",
@@ -124,6 +127,8 @@ PROGRAMS = [
     },
     {
         "name": "USDA REAP -- Rural Energy for America Program",
+        "desc": "USDA grants and loan guarantees that help rural businesses and farms pay for "
+                "renewable energy and efficiency projects.",
         "type": "Grant + Loan Guarantee",
         "tech": "Multiple Technologies",
         "value": "Grants up to 50% of cost (historically 25%); loan guarantees",
@@ -132,11 +137,10 @@ PROGRAMS = [
         "baseline": "Eligible rural small business or agricultural producer",
         "minp": "Rural small business or ag producer; project in an eligible rural area",
         "url": "https://www.rd.usda.gov/programs-services/energy-programs/rural-energy-america-program-renewable-energy-systems-energy-efficiency-improvement-guaranteed-loans",
-        "notes": "USDA REAP provides grants and guaranteed loans to agricultural producers and rural small "
-                 "businesses for renewable energy systems (solar, wind, storage, biogas) and energy-efficiency "
-                 "improvements (VFDs, lighting, HVAC, grain dryers, irrigation, refrigeration). Much of Utah "
-                 "qualifies as rural. Grant share and caps are set by current funding rounds -- confirm the "
-                 "current percentage and application window. Stacks with the federal ITC and utility rebates.",
+        "notes": "Covers renewable energy (solar, wind, storage, biogas) and efficiency (VFDs, lighting, HVAC, "
+                 "grain dryers, irrigation, refrigeration). Much of Utah qualifies as rural. Grant share and "
+                 "caps are set by current funding rounds -- confirm the percentage and application window. "
+                 "Stacks with the federal ITC and utility rebates.",
         "impl": "1. Confirm rural eligibility (address check on USDA's map) and business/ag-producer status. "
                 "2. Obtain an energy assessment/audit for efficiency projects. 3. Apply through USDA Rural "
                 "Development during an open window. 4. If awarded, install and submit for reimbursement. "
@@ -165,6 +169,7 @@ def fetch_all(states=None):
                 notes=p["notes"], implementation=p["impl"], methodology=p["meth"],
                 example=p["example"], incentive_rate=p["rate"],
                 baseline=p["baseline"], min_project=p["minp"],
+                description=p.get("desc", ""),
                 key=key,
                 detail_level=("detailed" if detailed else "general"),
                 verified_date=(VERIFIED_DATE if detailed else ""),

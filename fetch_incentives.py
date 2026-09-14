@@ -106,6 +106,7 @@ HTML_COLUMNS = [c for c in COLUMNS if c not in (
 # Detail columns stored in SQLite and shown in modal / Excel Details sheet.
 # The _ -prefixed structured fields hold the actual numbers used in calculations.
 DETAIL_COLUMNS = [
+    "_description",
     "_incentive_rate", "_rebate_tiers", "_unit_cap", "_baseline", "_min_project",
     "_implementation", "_methodology", "_example",
     # Two-tier model metadata (see scrapers/base.record).
@@ -604,6 +605,7 @@ def _write_html(rows):
         # Store detail data in JS object
         detail_data[row_idx] = {
             "name": name,
+            "desc": str(row.get("_description") or ""),
             "state": state,
             "admin": str(row.get("Administrator") or ""),
             "sector": str(row.get("Sector") or ""),
@@ -788,6 +790,8 @@ td .eq-tag { display: inline-block; background: #f0e6e6; color: #7a3a3a; border-
 .close-btn { margin-left: auto; background: none; border: none; color: rgba(255,255,255,.85); font-size: 20px; cursor: pointer; padding: 0 2px; line-height: 1; }
 .close-btn:hover { color: #fff; }
 .modal-body { padding: 0; }
+/* Plain-language blurb at the very top of the modal */
+.modal-desc { padding: 16px 24px; margin: 0; font-size: 14px; line-height: 1.55; color: #333; border-bottom: 1px solid #eee; }
 /* Hero -- what the program pays, up top */
 .hero { display: flex; gap: 16px; align-items: flex-start; padding: 18px 24px; border-bottom: 1px solid #eee; }
 .hero-main { flex: 1; min-width: 0; }
@@ -891,6 +895,8 @@ td .eq-tag { display: inline-block; background: #f0e6e6; color: #7a3a3a; border-
     <h2 id="m-name"></h2>
   </div>
   <div class="modal-body">
+    <!-- Plain-language blurb: what this incentive is for -->
+    <p id="m-desc" class="modal-desc"></p>
     <!-- Hero: what it pays -->
     <div class="hero">
       <div class="hero-main">
@@ -1001,6 +1007,9 @@ function openDetail(idx) {
   var d = DETAILS[idx];
   if (!d) return;
   document.getElementById('m-name').textContent = d.name;
+  var descEl = document.getElementById('m-desc');
+  if (d.desc) { descEl.textContent = d.desc; descEl.style.display = ''; }
+  else { descEl.style.display = 'none'; }
   var badge = document.getElementById('m-state-badge');
   badge.textContent = d.state;
   badge.style.background = HTML_COLORS[d.state] || '#888';

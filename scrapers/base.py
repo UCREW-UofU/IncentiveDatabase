@@ -61,11 +61,14 @@ def record(
     implementation="", methodology="", example="",
     incentive_rate="", rebate_tiers="", unit_cap="", baseline="", min_project="",
     key="", detail_level="detailed", verified_date="", source_doc="", changed=False,
-    verified_by="",
+    verified_by="", description="",
 ):
     return {
         "State": state,
         "Program Name": name,
+        # Short plain-language blurb: what this incentive is for. Shown first in
+        # the detail modal so the reader gets the gist before the numbers.
+        "_description": description,
         "Administrator": administrator,
         "Sector": sector,
         "Incentive Type": incentive_type,
