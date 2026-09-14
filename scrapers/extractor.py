@@ -221,7 +221,11 @@ def extract_measure(source_doc, program_name, admin):
     # 2. Self-consistency: all passes must agree on the exact set of figures.
     sigs = {_sig(r.get("figures_found")) for r in runs}
     if len(sigs) != 1:
-        return fail("extractions disagreed on the figures across " + str(len(runs)) + " passes")
+        res = fail("extractions disagreed on the figures across " + str(len(runs)) + " passes")
+        # Attach each run's figures so a caller (e.g. the smoke test) can show what
+        # actually differed instead of guessing.
+        res["figures_by_run"] = [list(r.get("figures_found") or []) for r in runs]
+        return res
     signature = next(iter(sigs))
     if not signature:
         return fail("no numeric figures found in the PDF")

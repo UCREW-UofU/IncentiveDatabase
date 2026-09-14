@@ -1532,6 +1532,13 @@ def _ai_smoke_test():
         print("  figures_found:  " + ", ".join(f.get("figures", [])))
         print("\nEyeball these against the PDF above. If they match, the pipeline works.")
     else:
+        # If the gate failed on disagreement, show each read's figures so we can
+        # see whether the difference is a real rate discrepancy or noise.
+        by_run = result.get("figures_by_run")
+        if by_run:
+            print("\nFigures each read reported (for diagnosis):")
+            for i, figs in enumerate(by_run, start=1):
+                print("  read " + str(i) + ": " + (", ".join(figs) if figs else "(none)"))
         print("\nNo values returned (gate not passed). This is the SAFE failure mode --")
         print("in a real run the row would stay a 'general' stub, not publish a guess.")
 
