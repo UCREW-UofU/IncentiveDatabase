@@ -30,10 +30,10 @@
     "federal:battery-storage-section-48e": {
       "detail_level": "detailed",
       "first_seen": "2026-08-31",
-      "last_fingerprint": "",
+      "last_fingerprint": "cl:18808",
       "last_seen": "2026-09-14",
       "missing_runs": 0,
-      "source_doc": "https://www.energy.gov/eere/solar/federal-solar-tax-credits-businesses",
+      "source_doc": "https://www.irs.gov/credits-deductions/clean-electricity-investment-credit",
       "verified_date": "2026-07-31",
       "verified_fingerprint": ""
     },
@@ -43,7 +43,7 @@
       "last_fingerprint": "",
       "last_seen": "2026-09-14",
       "missing_runs": 0,
-      "source_doc": "https://www.energy.gov/eere/solar/federal-solar-tax-credits-businesses",
+      "source_doc": "https://www.irs.gov/forms-pubs/about-publication-946",
       "verified_date": ""
     },
     "federal:rural-energy-for-america-program": {
@@ -58,10 +58,10 @@
     "federal:solar-pv-section-48e": {
       "detail_level": "detailed",
       "first_seen": "2026-08-31",
-      "last_fingerprint": "",
+      "last_fingerprint": "cl:18808",
       "last_seen": "2026-09-14",
       "missing_runs": 0,
-      "source_doc": "https://www.energy.gov/eere/solar/federal-solar-tax-credits-businesses",
+      "source_doc": "https://www.irs.gov/credits-deductions/clean-electricity-investment-credit",
       "verified_date": "2026-07-31",
       "verified_fingerprint": ""
     },

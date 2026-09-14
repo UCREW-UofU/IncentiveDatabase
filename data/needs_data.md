@@ -17,6 +17,6 @@ _2026-09-14 -- 15 detailed, 8 pending._
 - **179D Energy Efficient Commercial Buildings Deduction**  
   `federal:179d-energy-efficient-commercial-buildings-deduction` · U.S. Federal (IRS) · _general -- values pending_ — [source](https://www.energy.gov/eere/buildings/179d-commercial-buildings-energy-efficiency-tax-deduction)
 - **MACRS + Bonus Depreciation (Energy Property)**  
-  `federal:macrs-bonus-depreciation-energy-property` · U.S. Federal (IRS) · _general -- values pending_ — [source](https://www.energy.gov/eere/solar/federal-solar-tax-credits-businesses)
+  `federal:macrs-bonus-depreciation-energy-property` · U.S. Federal (IRS) · _general -- values pending_ — [source](https://www.irs.gov/forms-pubs/about-publication-946)
 - **USDA REAP -- Rural Energy for America Program**  
   `federal:rural-energy-for-america-program` · U.S. Federal (USDA Rural Development) · _general -- values pending_ — [source](https://www.rd.usda.gov/programs-services/energy-programs/rural-energy-america-program-renewable-energy-systems-energy-efficiency-improvement-guaranteed-loans)
