@@ -39,7 +39,7 @@ PROGRAMS = [
         "rate": "30% base Investment Tax Credit on total installed cost (equipment, labor, permitting)",
         "baseline": "Standalone or paired battery energy storage >=3 kWh (commercial/business-owned)",
         "minp": "Battery capacity >=3 kWh; business/commercial owner",
-        "url": "https://www.energy.gov/eere/solar/federal-solar-tax-credits-businesses",
+        "url": "https://www.irs.gov/credits-deductions/clean-electricity-investment-credit",
         "notes": "Section 48E Clean Electricity Investment Credit. Standalone or solar-paired storage >=3 kWh "
                  "qualifies at a 30% base rate, through 2032 before phase-down (26% in 2033, 22% in 2034). "
                  "Domestic-content, energy-community, and low-income adders can raise it above 30%. Stacks on "
@@ -64,7 +64,7 @@ PROGRAMS = [
         "rate": "30% base Investment Tax Credit on total installed solar cost",
         "baseline": "Commercial/business-owned solar photovoltaic system",
         "minp": "Business/commercial owner; begin-construction timing rules apply",
-        "url": "https://www.energy.gov/eere/solar/federal-solar-tax-credits-businesses",
+        "url": "https://www.irs.gov/credits-deductions/clean-electricity-investment-credit",
         "notes": "Section 48E Clean Electricity Investment Credit, 30% base, with domestic-content / "
                  "energy-community / low-income adders. Begin-construction timing rules apply after the 2025 "
                  "federal changes -- confirm deadlines with a tax advisor. Pairs with battery storage (also "
@@ -87,7 +87,7 @@ PROGRAMS = [
         "rate": "5-year MACRS accelerated depreciation on eligible energy property basis",
         "baseline": "Depreciable basis = installed cost less one-half of any ITC claimed",
         "minp": "Business-owned depreciable energy property (solar, storage, efficient equipment)",
-        "url": "https://www.energy.gov/eere/solar/federal-solar-tax-credits-businesses",
+        "url": "https://www.irs.gov/forms-pubs/about-publication-946",
         "notes": "Depreciate qualifying energy property over 5 years (plus any bonus depreciation per current "
                  "law). The depreciable basis is reduced by half the ITC claimed. Frequently stacked with the "
                  "ITC to cut a battery or solar project's net cost by another ~20-25%. Confirm the current "
@@ -173,6 +173,7 @@ def fetch_all(states=None):
                 key=key,
                 detail_level=("detailed" if detailed else "general"),
                 verified_date=(VERIFIED_DATE if detailed else ""),
+                verified_by=("human" if detailed else ""),
                 source_doc=p["url"],
             ))
     print("  Federal (IRS/USDA): " + str(len(PROGRAMS)) + " programs x " + str(len(states)) + " state(s)")
