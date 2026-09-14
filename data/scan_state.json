@@ -30,7 +30,7 @@
     "federal:battery-storage-section-48e": {
       "detail_level": "detailed",
       "first_seen": "2026-08-31",
-      "last_fingerprint": "cl:18811",
+      "last_fingerprint": "cl:18808",
       "last_seen": "2026-09-14",
       "missing_runs": 0,
       "source_doc": "https://www.irs.gov/credits-deductions/clean-electricity-investment-credit",
@@ -58,7 +58,7 @@
     "federal:solar-pv-section-48e": {
       "detail_level": "detailed",
       "first_seen": "2026-08-31",
-      "last_fingerprint": "cl:18811",
+      "last_fingerprint": "cl:18808",
       "last_seen": "2026-09-14",
       "missing_runs": 0,
       "source_doc": "https://www.irs.gov/credits-deductions/clean-electricity-investment-credit",
