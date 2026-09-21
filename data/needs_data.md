@@ -2,7 +2,7 @@
 
 Auto-generated each run. These programs are listed with a **general** description because their exact per-unit values are pending, or their source **changed** and needs re-verification. Promote one by pasting its source PDF/values to Claude, reviewing the drafted rate, and committing it as a `detailed` measure (see README).
 
-_2026-09-20 -- 15 detailed, 8 pending._
+_2026-09-21 -- 15 detailed, 8 pending._
 
 - **ThermWise Business -- Custom Rebates**  
   `dominion:custom-rebates` · Dominion Energy / Enbridge Gas Utah · _general -- values pending_ — [source](https://www.domsavings.com/)
