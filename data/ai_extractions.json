@@ -2,19 +2,23 @@
   "extractions": {
     "rmp:commercial-food-service-equipment": {
       "confidence": "pass",
-      "date": "2026-09-18",
+      "date": "2026-09-22",
       "fields": {
-        "baseline": "ENERGY STAR qualified equipment for listed appliance categories; demand controlled kitchen ventilation requires variable speed motors controlled to vary fan speed depending upon kitchen demand as indicated by connected sensors; anti-sweat heater controls must reduce anti-sweat heater energy consumption based on sensing humidity",
+        "baseline": "ENERGY STAR\u00ae qualified equipment for the listed equipment categories; demand controlled kitchen ventilation requires variable speed motors controlled to vary fan speed based on kitchen demand as indicated by connected sensors; anti-sweat heater controls must reduce anti-sweat heater energy consumption based on sensing humidity",
         "cap": "",
         "effective_date": "2025-07-11",
         "figures": [
           "$100",
           "$300",
           "$500",
+          "$500",
           "$1,000",
           "$600",
           "$400",
+          "$600",
           "$350",
+          "$300",
+          "$300",
           "$700",
           "$125",
           "$150",
@@ -23,14 +27,14 @@
           "$16/linear foot (case length)"
         ],
         "max": "",
-        "methodology": "Prescriptive per-unit incentives paid by equipment type/category when the unit meets the listed ENERGY STAR or control-based efficiency requirement. Demand controlled kitchen ventilation exhaust hoods are paid at $0.15/kWh of annual energy savings, and anti-sweat heater controls are paid per linear foot of case length.",
-        "minp": "Equipment must meet or exceed the listed minimum efficiency requirement for its category; commercial dishwashers limited to high temperature models with electric boosters; ice machines air-cooled only; demand controlled kitchen ventilation and anti-sweat heater controls are retrofit only; electric combination oven 3\u201340 pans",
-        "notes": "1. Equipment that meets or exceeds the efficiency requirements listed for the equipment category may qualify for the listed incentive. 2. Refer to Rocky Mountain Power's Wattsmart Homes program for efficiency requirements and incentives for listed residential appliances used in a business. 3. Incentives are paid at $0.15/kWh annual energy savings; demand controlled kitchen ventilation exhaust hood energy savings subject to approval by Rocky Mountain Power. See Appliances section for additional incentives. CEE = Consortium for Energy Efficiency; MDEC = Maximum Daily Energy Consumption; V = AHAM Volume (cubic feet).",
-        "rate": "Commercial dishwasher (high-temperature models w/electric boosters only), ENERGY STAR qualified: under counter $100; single tank stationary (door type) $300; single tank conveyor $500; multiple tank conveyor $500. Electric insulated holding cabinet, ENERGY STAR qualified: V \u2265 28 (double size) $1,000; 13 \u2264 V < 28 (full size) $600; V < 13 (half size) $400. Electric steam cooker, all sizes, ENERGY STAR qualified: $600. Electric convection oven (full size or half size), ENERGY STAR qualified: $350. Electric fryer (width < 18 in standard or \u2265 18 in large), ENERGY STAR qualified: $300. Electric griddle, all sizes, ENERGY STAR qualified: $300. Electric combination oven, 3\u201340 pans, ENERGY STAR qualified: $700. Ice machines (air-cooled only), ENERGY STAR qualified: harvest rate < 500 lbs/day $125; harvest rate \u2265 500 lbs/day $150. Demand controlled kitchen ventilation exhaust hood (retrofit only): $0.15/kWh annual energy savings. Anti-sweat heater controls (retrofit only): low-temp (freezing) cases $20/linear foot (case length); mid-temp (refrigerated) cases $16/linear foot (case length). Residential dishwasher, refrigerator and freezer used in a business: see offering in Schedule 111 (Wattsmart Homes program).",
-        "tiers": "Dishwasher: under counter $100 / single tank stationary $300 / single tank conveyor $500 / multiple tank conveyor $500. Holding cabinet: V \u2265 28 $1,000 / 13 \u2264 V < 28 $600 / V < 13 $400. Ice machines: < 500 lbs/day $125 / \u2265 500 lbs/day $150. Anti-sweat heater controls: low-temp $20/linear foot / mid-temp $16/linear foot.",
-        "value": "$100\u2013$1,000 per qualifying ENERGY STAR food service unit"
+        "methodology": "Prescriptive fixed incentive per qualifying unit based on equipment type/category meeting the listed minimum efficiency requirement; demand controlled kitchen ventilation exhaust hoods are paid at $0.15 per kWh of annual energy savings, and anti-sweat heater controls are paid per linear foot of case length.",
+        "minp": "",
+        "notes": "Equipment that meets or exceeds the listed efficiency requirements may qualify for the listed incentive. Refer to Rocky Mountain Power's Wattsmart Homes program for residential appliances used in a business (Schedule 111). Demand controlled kitchen ventilation exhaust hood energy savings subject to approval by Rocky Mountain Power. Demand controlled kitchen ventilation and anti-sweat heater controls are retrofit only. Commercial dishwasher incentives apply to high temperature models with electric boosters only; ice machines air-cooled only. See Appliances section for additional incentives.",
+        "rate": "Commercial Dishwasher (high temperature models w/electric boosters only, ENERGY STAR qualified): under counter $100; single tank stationary (door type) $300; single tank conveyor $500; multiple tank conveyor $500. Electric Insulated Holding Cabinet (ENERGY STAR qualified): V \u2265 28 (double size) $1,000; 13 \u2264 V < 28 (full size) $600; V < 13 (half size) $400. Electric Steam Cooker, all sizes: $600. Electric Convection Oven, full or half size: $350. Electric Fryer, width < 18 in (standard) or \u2265 18 in (large): $300. Electric Griddle, all sizes: $300. Electric Combination Oven, 3\u201340 pans: $700. Ice Machines (air-cooled only): harvest rate < 500 lbs/day $125; harvest rate \u2265 500 lbs/day $150. Demand Controlled Kitchen Ventilation Exhaust Hood (retrofit only): $0.15/kWh annual energy savings. Anti-Sweat Heater Controls (retrofit only): low-temp (freezing) cases $20/linear foot (case length); mid-temp (refrigerated) cases $16/linear foot (case length). Residential dishwasher, refrigerator and freezer used in a business: see offering in Schedule 111 (Wattsmart Homes program).",
+        "tiers": "Dishwasher: $100 / $300 / $500 / $500. Holding cabinet: $1,000 (V \u2265 28) / $600 (13 \u2264 V < 28) / $400 (V < 13). Ice machines: $125 (<500 lbs/day) / $150 (\u2265500 lbs/day). Anti-sweat heater controls: $20/linear foot low-temp / $16/linear foot mid-temp.",
+        "value": "$100\u2013$1,000 per qualifying unit; $0.15/kWh annual energy savings for demand controlled kitchen ventilation"
       },
-      "fingerprint": "cl:52081",
+      "fingerprint": "cl:49046",
       "model": "claude-opus-5",
       "reason": "agreed across 2 passes; 13 $ amounts",
       "samples": 2,
