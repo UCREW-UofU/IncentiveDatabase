@@ -1,5 +1,108 @@
 {
   "extractions": {
+    "rmp:appliances-office-equipment": {
+      "confidence": "pass",
+      "date": "2026-10-06",
+      "fields": {
+        "baseline": "Equipment must meet or exceed the listed minimum efficiency requirement for its category; commercial clothes washer must be ENERGY STAR qualified; plug strips and engine block heater controls must be on the applicable Qualified Product List",
+        "cap": "Incentives paid per qualifying unit ($5/qualifying unit; $125/unit; $100 per commercial clothes washer)",
+        "effective_date": "2026-09-21",
+        "figures": [
+          "$5/qualifying unit",
+          "$125/unit",
+          "$100"
+        ],
+        "max": "",
+        "methodology": "Flat per-unit incentive paid for each qualifying piece of equipment that meets or exceeds the listed minimum efficiency requirement.",
+        "minp": "",
+        "notes": "Equipment must meet the efficiency rating standard in effect on the date of purchase. Refer to Rocky Mountain Power's Wattsmart Homes program for efficiency requirements and incentives for listed residential appliances used in a business. The Customer or Owner may receive only one financial incentive from Rocky Mountain Power per measure; financial incentives include energy efficiency incentive payments, bill credits, and energy management payments. Energy Project Manager Co-Funding is available in addition to the project incentives. See Food Service Equipment section for additional incentives.",
+        "rate": "Smart Plug Strip: $5/qualifying unit (plug strip must be on the Qualified Product List and eliminate idle or stand-by power consumption of connected plug-load appliance via electric load sensor or occupancy sensor; electric plug-load applications only). Engine Block Heater Controls: $125/unit (unit must be on the Qualified Engine Block Heater list at time of purchase and be a hard-wired outlet, portable, or engine-mounted thermostatically controlled heater). High-Efficiency Clothes Washer \u2013 Commercial (must have electric water heating and/or electric clothes dryer), ENERGY STAR qualified: $100. High-Efficiency Clothes Washer \u2013 Residential (used in a business) and Heat Pump Water Heater \u2013 Residential (used in a business): see Wattsmart Homes program.",
+        "tiers": "",
+        "value": "$5/qualifying unit smart plug strip; $125/unit engine block heater controls; $100 commercial clothes washer"
+      },
+      "fingerprint": "cl:48767",
+      "model": "claude-opus-5",
+      "reason": "agreed across 2 passes; 3 $ amounts",
+      "samples": 2,
+      "source_doc": "https://www.rockymountainpower.net/content/dam/pcorp/documents/en/rockymountainpower/savings-energy-choices/wattsmart-business/utah/UT_Wattsmart_Business_Appliances_OtherEquip_Incentives.pdf"
+    },
+    "rmp:building-envelope-insulation-cool-roof": {
+      "confidence": "pass",
+      "date": "2026-10-06",
+      "fields": {
+        "baseline": "Cool roof must meet minimum SRI specified by Green Globes Building Certification; insulation measured as a minimum increment of R-10 insulation added; windows rated U-factor \u2264 0.30 and SHGC \u2264 0.33 per NFRC; building must be conditioned with mechanical cooling.",
+        "cap": "",
+        "effective_date": "2026-09-21",
+        "figures": [
+          "$0.04/square foot",
+          "$0.40/square foot",
+          "$0.30/square foot",
+          "$1.00/square foot",
+          "$0.15/kWh"
+        ],
+        "max": "",
+        "methodology": "Prescriptive per-square-foot incentives paid on the installed area of qualifying envelope measures; window film is calculated from film specifications and window orientation at $0.15/kWh of annual energy savings, subject to Rocky Mountain Power approval.",
+        "minp": "Minimum increment of R-10 insulation added (roof/attic and wall insulation)",
+        "notes": "Equipment that meets or exceeds the listed efficiency requirements may qualify. Building must be conditioned with mechanical cooling to be eligible for building envelope incentives. Window assemblies/glazing must be rated per NFRC; site-built metal window systems must include a thermal break or other appropriate NFRC certification; skylights are not eligible. Window square footage is determined by the dimensions of the entire window assembly, not just the glass. Customer or Owner may receive only one financial incentive from Rocky Mountain Power per measure; Energy Project Manager Co-Funding is available in addition to project incentives.",
+        "rate": "Cool Roof (must meet minimum SRI specified by Green Globes Building Certification): $0.04/square foot. Roof/Attic Insulation (minimum increment of R-10 insulation added): $0.40/square foot. Wall Insulation (minimum increment of R-10 insulation added): $0.30/square foot. Windows, site-built (U-factor \u2264 0.30 and SHGC \u2264 0.33, glazing only rating): $1.00/square foot. Windows, assembly (U-factor \u2264 0.30 and SHGC \u2264 0.33, entire window assembly rating): $1.00/square foot. Window Film on existing windows: $0.15/kWh annual energy savings.",
+        "tiers": "",
+        "value": "$0.40/square foot for roof/attic insulation"
+      },
+      "fingerprint": "cl:46175",
+      "model": "claude-opus-5",
+      "reason": "agreed across 2 passes; 5 $ amounts",
+      "samples": 2,
+      "source_doc": "https://www.rockymountainpower.net/content/dam/pcorp/documents/en/rockymountainpower/savings-energy-choices/wattsmart-business/utah/UT_Wattsmart_Business_Building_Envelope_Retrofits_Incentives.pdf"
+    },
+    "rmp:calculated-lighting-system-retrofit-non-prescriptive-per-watt-reduced": {
+      "confidence": "pass",
+      "date": "2026-10-06",
+      "fields": {
+        "baseline": "New lighting system must use less energy than the existing lighting system being replaced or the baseline lighting system as determined by Rocky Mountain Power; where controls are required for eligibility and existing controls are present, new controls must yield higher energy savings than the existing controls system",
+        "cap": "Incentives capped at 70% of Energy Efficiency Project Costs; ANLC Re-Commissioning only projects capped at 100% of Energy Efficiency Measure Costs",
+        "effective_date": "2026-09-21",
+        "figures": [
+          "$0.60/W Reduced",
+          "$0.80/W Reduced",
+          "$1.00/W Reduced",
+          "$1.20/W Reduced",
+          "$0.30/W Controlled",
+          "$0.38/W Controlled",
+          "$0.10/W Controlled",
+          "$0.05/kWh",
+          "$0.03/kWh",
+          "$0.15/W Reduced",
+          "$0.30/W Reduced",
+          "$0.85/W Reduced",
+          "$0.35/W Reduced",
+          "$0.50/W Reduced",
+          "$0.70/W Reduced",
+          "$0.18/W Controlled",
+          "$0.10/W Reduced",
+          "$0.18/W Reduced",
+          "$0.20/W Reduced",
+          "$0.25/W Reduced",
+          "$0.28/W Reduced",
+          "$0.39/W Reduced",
+          "$0.20/W Controlled",
+          "$0.33/W Controlled",
+          "70% of Energy Efficiency Project Costs",
+          "100% of Energy Efficiency Measure Costs"
+        ],
+        "max": "70% of Energy Efficiency Project Costs (100% of Energy Efficiency Measure Costs for ANLC Re-Commissioning only projects)",
+        "methodology": "Incentive is calculated by multiplying the applicable per-watt rate by the watts reduced (or watts controlled for controls-only measures), or by annual kWh for Controlled Environment Agriculture measures, with qualified make/model numbers entered into the lighting calculator tool. Payment is then capped at 70% of approved Energy Efficiency Project Costs and limited so simple payback is not below one year.",
+        "minp": "Incentive will not be available to reduce the Energy Efficiency Project simple payback below one year",
+        "notes": "Only one financial incentive per measure from Rocky Mountain Power; Energy Project Manager Co-Funding available in addition to project incentives. 3-year waiting period for ANLC re-commissioning that previously received an ANLC incentive (waivable if the installed control system never received an incentive). Qualified equipment must appear on the qualified equipment lists in the 'Qualified Lighting Equipment Policy'; certain technologies are ineligible per 'Ineligible Lighting Technologies'. Per IECC 2021, parking garages and areas under parking decks are interior spaces; top decks are exterior. Exterior fixtures default to dusk-to-dawn operation unless otherwise documented and verified. CEA fixtures must be listed on the DLC horticultural lighting Qualified Products List. Exterior seasonal lighting (large outdoor events, less than dusk-to-dawn or seasonal schedules) is only eligible for the Exterior Seasonal Lighting incentives. Energy savings and project costs subject to Rocky Mountain Power approval/discretion.",
+        "rate": "INTERIOR \u2014 New Fixtures/Retrofit Kits: without controls or basic controls $0.60/W Reduced; with plug and play controls ready $0.80/W Reduced; with networked controls (area/circuit level) $1.00/W Reduced; with advanced networked lighting controls (fixture level/LLLC) $1.20/W Reduced. Controls Only: networked controls (area/circuit level) $0.30/W Controlled; advanced networked lighting controls (fixture level/LLLC) $0.38/W Controlled; advanced networked lighting controls re-commissioning $0.10/W Controlled. Controlled Environment Agriculture (CEA): fixtures $0.05/kWh; replacement lamps $0.03/kWh. Custom: without controls $0.15/W Reduced; with basic controls $0.30/W Reduced; with advanced networked lighting controls (fixture level/LLLC) $0.85/W Reduced. EXTERIOR \u2014 Lamps: see Market Incentive Offering. New Fixtures/Retrofit Kits: without controls $0.35/W Reduced; with basic dimming controls $0.50/W Reduced; with advanced networked dimming controls $0.70/W Reduced. Controls Only: basic dimming controls $0.18/W Controlled; advanced networked dimming controls $0.30/W Controlled. Street Lighting: with basic dimming controls $0.35/W Reduced; with advanced networked dimming controls $0.35/W Reduced. Custom: without controls $0.10/W Reduced; with exterior dimming controls $0.30/W Reduced. EXTERIOR SEASONAL (Large/Medium/Small) \u2014 Flexible Lighting Retrofit (Calculated): without controls $0.18/$0.20/$0.20 per W Reduced; with basic exterior dimming controls $0.25/$0.28/$0.28 per W Reduced; with advanced networked dimming controls $0.35/$0.39/$0.39 per W Reduced. Controls Only: basic exterior dimming controls $0.18/$0.20/$0.20 per W Controlled; advanced networked dimming controls $0.30/$0.33/$0.33 per W Controlled. Seasonal replacement lamps: see Market Incentive Offering.",
+        "tiers": "Exterior seasonal lighting tiers by project size \u2014 Large / Medium / Small: Without Controls $0.18 / $0.20 / $0.20 per W Reduced; With Basic Exterior Dimming Controls $0.25 / $0.28 / $0.28 per W Reduced; With Advanced Networked Dimming Controls $0.35 / $0.39 / $0.39 per W Reduced; Controls Only Basic Exterior Dimming $0.18 / $0.20 / $0.20 per W Controlled; Controls Only Advanced Networked Dimming $0.30 / $0.33 / $0.33 per W Controlled",
+        "value": "$0.60\u2013$1.20/W Reduced (interior new fixtures/retrofit kits)"
+      },
+      "fingerprint": "cl:106852",
+      "model": "claude-opus-5",
+      "reason": "agreed across 2 passes; 20 $ amounts",
+      "samples": 2,
+      "source_doc": "https://www.rockymountainpower.net/content/dam/pcorp/documents/en/rockymountainpower/savings-energy-choices/wattsmart-business/utah/UT_Wattsmart_Business_Lighting_System_Retrofits_Incentives.pdf"
+    },
     "rmp:commercial-food-service-equipment": {
       "confidence": "pass",
       "date": "2026-10-02",
@@ -24,6 +127,98 @@
       "reason": "agreed across 2 passes; 2 $ amounts",
       "samples": 2,
       "source_doc": "https://www.rockymountainpower.net/content/dam/pcorp/documents/en/rockymountainpower/savings-energy-choices/wattsmart-business/utah/UT_Wattsmart_Business_Food_Services_Equipment_Incentives.pdf"
+    },
+    "rmp:express-lighting-retrofit-prescriptive-per-watt-installed": {
+      "confidence": "pass",
+      "date": "2026-10-06",
+      "fields": {
+        "baseline": "New lighting system must use less energy than the existing lighting system being replaced or the baseline lighting system as determined by Rocky Mountain Power; must be a \"like for like\" (lumen for lumen) retrofit",
+        "cap": "Incentives capped at 70% of Energy Efficiency Project Costs",
+        "effective_date": "2026-09-21",
+        "figures": [
+          "$0.75/W Installed",
+          "$1.00/W Installed",
+          "$1.25/W Installed",
+          "$1.75/W Installed",
+          "$0.30/W Controlled",
+          "$0.38/W Controlled",
+          "$1.20/W Installed",
+          "$1.40/W Installed",
+          "$1.60/W Installed",
+          "$1.80/W Installed",
+          "$0.18/W Controlled",
+          "70% of Energy Efficiency Project Costs"
+        ],
+        "max": "70% of Energy Efficiency Project Costs",
+        "methodology": "Incentive is paid per watt: watts installed (new fixture/retrofit kit measures) or watts controlled (controls-only measures) multiplied by the applicable $/W rate for the lighting category and control type, then capped at 70% of approved Energy Efficiency Project Costs.",
+        "minp": "",
+        "notes": "Lighting redesigns that significantly alter layouts/light levels or are driven by space use/occupancy changes may not be eligible; LED-to-LED fixture retrofits are not eligible. Only one financial incentive per measure from Rocky Mountain Power; Energy Project Manager Co-Funding available in addition. Qualified equipment must appear on the Qualified Lighting Equipment Policy lists and make/model numbers must be entered into the lighting calculator tool. Savings and project costs subject to Rocky Mountain Power approval and discretion; certain technologies are listed as ineligible. Per IECC 2021, parking garages and areas under parking decks count as interior spaces; top decks are exterior. Exterior Seasonal Lighting is not eligible for Express incentives (only Flexible Lighting calculated incentives). Streetlighting is eligible for Express incentives; only Customer-Funded Conversions are eligible on Schedule 11.",
+        "rate": "Interior Lighting System Retrofit \u2014 New Fixture/Retrofit Kit: without controls $0.75/W installed; with plug and play controls ready $1.00/W installed; with networked lighting controls $1.25/W installed; with luminaire level lighting controls $1.75/W installed. Interior Controls Only: networked lighting controls $0.30/W controlled; luminaire level lighting controls $0.38/W controlled. Exterior Lighting System Retrofit \u2014 New Fixture/Retrofit Kit: without controls $1.20/W installed; with plug and play controls ready $1.40/W installed; with basic dimming controls $1.60/W installed; with advanced networked dimming controls $1.80/W installed. Exterior Controls Only: basic dimming controls $0.18/W controlled; advanced networked dimming controls $0.30/W controlled.",
+        "tiers": "Interior new fixture/retrofit kit: $0.75/W (without controls), $1.00/W (plug and play controls ready), $1.25/W (networked lighting controls), $1.75/W (luminaire level lighting controls); Interior controls only: $0.30/W (networked lighting controls), $0.38/W (luminaire level lighting controls); Exterior new fixture/retrofit kit: $1.20/W (without controls), $1.40/W (plug and play controls ready), $1.60/W (basic dimming controls), $1.80/W (advanced networked dimming controls); Exterior controls only: $0.18/W (basic dimming controls), $0.30/W (advanced networked dimming controls)",
+        "value": "$0.75\u2013$1.75/W installed (interior); $1.20\u2013$1.80/W installed (exterior)"
+      },
+      "fingerprint": "cl:49087",
+      "model": "claude-opus-5",
+      "reason": "agreed across 2 passes; 11 $ amounts",
+      "samples": 2,
+      "source_doc": "https://www.rockymountainpower.net/content/dam/pcorp/documents/en/rockymountainpower/savings-energy-choices/wattsmart-business/utah/UT_Wattsmart_Business_Express_Lighting_Retrofits_Incentives.pdf"
+    },
+    "rmp:hvac-heat-pump": {
+      "confidence": "pass",
+      "date": "2026-10-06",
+      "fields": {
+        "baseline": "Minimum efficiency requirements as printed: CEE Tier 1/Tier 2/Tier 3 (Consortium for Energy Efficiency Unitary Air-conditioning and Heat Pump Specification), ENERGY STAR\u00ae qualified, or stated EER/COP values (13 EER; 12.1 EER; 10.4 EER; 13 EER and 3.6 COP; 12.1 EER and 3.5 COP; 10.4 EER and 3.3 COP). Equipment must meet or exceed the efficiency requirement listed for its size category and must meet all listed efficiency requirements.",
+        "cap": "",
+        "effective_date": "2026-09-21",
+        "figures": [
+          "$50/TON",
+          "$75/TON",
+          "$100/TON",
+          "$50/ton",
+          "$120/ton",
+          "$300/ton",
+          "$25/ton",
+          "$1,000/indoor unit head",
+          "$125/ton"
+        ],
+        "max": "",
+        "methodology": "Incentive is paid per ton of net cooling capacity (AHRI standard conditions) of qualifying equipment, at the $/ton rate for the equipment type, category, size range and efficiency tier met; VRF air-cooled systems are paid per indoor unit head instead. Heat pump incentives are paid per ton of cooling capacity only, and heat pumps must meet both cooling and heating mode efficiency requirements.",
+        "minp": "",
+        "notes": "Applies to retrofit/major renovation HVAC equipment. PTHPs can replace electric resistive heating, which must be removed. No incentives are paid per ton of heating capacity. Equipment size categories/capacities are per AHRI Standard 210/240 (<65,000 Btu/hr), 340/360 (\u226565,000 Btu/hr), 310/380 (PTAC/PTHP), and 1230 (VRF). Ground- and water-source heat pumps must be rated per ISO-13256-1. Efficiency requirements align with the CEE Unitary Air-conditioning and Heat Pump Specification or ENERGY STAR for equipment with heating sections other than electric resistance; minimum efficiency requirements listed at Wattsmart.com. Customer or Owner may receive only one financial incentive from Rocky Mountain Power per measure (incentive payments, bill credits, energy management payments); Energy Project Manager Co-Funding is available in addition to project incentives. Utah.",
+        "rate": "Unitary Commercial Air Conditioner, air cooled (split systems only): $50/ton at CEE Tier 1 for <65,000 Btu/hr, \u226565,000 and <240,000 Btu/hr, and \u2265240,000 Btu/hr; $75/ton at CEE Tier 2 for all three air-cooled size ranges; $100/ton at CEE Tier 3 for \u226565,000 and <240,000 Btu/hr and \u2265240,000 Btu/hr (no $100/ton tier for <65,000 Btu/hr). Water cooled and evaporatively cooled unitary AC, all equipment sizes: $50/ton at CEE Tier 1 (no $75/ton or $100/ton tier). Unitary Commercial Heat Pumps: water cooled, all sizes, CEE Tier 1 \u2014 $50/ton; ground source, all sizes, ENERGY STAR qualified \u2014 $50/ton; groundwater source, all sizes, ENERGY STAR qualified \u2014 $50/ton; air cooled upgrade, ENERGY STAR qualified \u2014 $120/ton; air cooled conversion, ENERGY STAR qualified \u2014 $300/ton. PTAC: $25/ton (\u22647,000 Btu/hr at 13 EER; >7,000 and \u226415,000 Btu/hr at 12.1 EER; >15,000 Btu/hr at 10.4 EER). PTHP: $50/ton (\u22647,000 Btu/hr at 13 EER and 3.6 COP; >7,000 and \u226415,000 Btu/hr at 12.1 EER and 3.5 COP; >15,000 Btu/hr at 10.4 EER and 3.3 COP). VRF Heat Pumps, air cooled, ducted <240,000 Btu/hr and non-ducted/ductless <240,000 Btu/hr, ENERGY STAR qualified: $1,000/indoor unit head. VRF Heat Pumps, water cooled, multisplit system and multisplit system with heat recovery, all equipment sizes, CEE Tier 1: $125/ton. Heat Pump Loop (ground source closed loop and groundwater source open loop), all equipment sizes, no efficiency requirement listed: $125/ton.",
+        "tiers": "Air-cooled unitary commercial air conditioners (split systems only): CEE Tier 1 = $50/ton; CEE Tier 2 = $75/ton; CEE Tier 3 = $100/ton (Tier 3 applies only to units \u226565,000 Btu/hr; '\u2014' shown for <65,000 Btu/hr at $100/ton). Water cooled and evaporatively cooled: CEE Tier 1 = $50/ton only.",
+        "value": "$25\u2013$300/ton of cooling capacity (HVAC retrofit/major renovation)"
+      },
+      "fingerprint": "cl:76995",
+      "model": "claude-opus-5",
+      "reason": "agreed across 2 passes; 8 $ amounts",
+      "samples": 2,
+      "source_doc": "https://www.rockymountainpower.net/content/dam/pcorp/documents/en/rockymountainpower/savings-energy-choices/wattsmart-business/utah/UT_wattsmart_Business_HVAC_Equipment_Incentives.pdf"
+    },
+    "rmp:motors-vfds-pumps-fans": {
+      "confidence": "pass",
+      "date": "2026-10-06",
+      "fields": {
+        "baseline": "Equipment must meet or exceed the efficiency requirements listed for the equipment category in the table (minimum efficiency requirement listed as '\u2014' for ECMs; 'See note 2' for VFDs). VFDs required by or used to comply with the applicable version of the energy code are not eligible.",
+        "cap": "",
+        "effective_date": "2026-09-21",
+        "figures": [
+          "$3/watt",
+          "$200/horsepower"
+        ],
+        "max": "",
+        "methodology": "Incentive is paid per unit of installed equipment capacity \u2014 ECMs in refrigeration applications at $3 per watt, and HVAC ECMs and HVAC fan/pump VFDs at $200 per horsepower, within the stated size categories.",
+        "minp": "",
+        "notes": "ECM incentives are retrofit only. For HVAC fan or pump VFD incentives, throttling or bypass devices such as inlet vanes, bypass dampers, three-way valves or throttling valves must be removed or permanently disabled; savings will only be realized where a variable load is present. The Customer or Owner may receive only one financial incentive from Rocky Mountain Power per measure (financial incentives include energy efficiency incentive payments, bill credits, and energy management payments); Energy Project Manager Co-Funding is available in addition to the project incentives. Utah.",
+        "rate": "Electronically Commutated Motors (ECM), retrofit only: \u2264 1 horsepower in refrigeration application \u2014 $3/watt; \u2264 1 horsepower in HVAC application \u2014 $200/horsepower; > 1 hp and \u2264 10 hp in HVAC application \u2014 $200/horsepower. Variable-Frequency Drives (HVAC fans and pumps) \u2264 100 horsepower \u2014 $200/horsepower.",
+        "tiers": "ECM \u2264 1 hp refrigeration: $3/watt; ECM \u2264 1 hp HVAC: $200/horsepower; ECM > 1 hp and \u2264 10 hp HVAC: $200/horsepower; VFD \u2264 100 hp HVAC fans and pumps: $200/horsepower",
+        "value": "$200/horsepower for HVAC ECMs and VFDs; $3/watt for refrigeration ECMs"
+      },
+      "fingerprint": "cl:45294",
+      "model": "claude-opus-5",
+      "reason": "agreed across 2 passes; 2 $ amounts",
+      "samples": 2,
+      "source_doc": "https://www.rockymountainpower.net/content/dam/pcorp/documents/en/rockymountainpower/savings-energy-choices/wattsmart-business/utah/UT_Wattsmart_Business_Motors_Incentives.pdf"
     }
   }
 }
