@@ -128,6 +128,36 @@
       "samples": 2,
       "source_doc": "https://www.rockymountainpower.net/content/dam/pcorp/documents/en/rockymountainpower/savings-energy-choices/wattsmart-business/utah/UT_Wattsmart_Business_Food_Services_Equipment_Incentives.pdf"
     },
+    "rmp:compressed-air-system-optimization-calculated": {
+      "confidence": "pass",
+      "date": "2026-10-07",
+      "fields": {
+        "baseline": "Measured against existing/standard equipment being replaced: standard coalescing filter; limited or no receiver capacity (\u2264 2 gallons per scfm of trim compressor capacity); non-cycling refrigerated dryer; fixed speed compressor; fixed timer drain; compressor drawing intake air from compressor room; inappropriate or inefficient compressed air end uses.",
+        "cap": "Incentives are capped at 70% of energy efficiency project costs; incentives will not be available to reduce project simple payback below one year.",
+        "effective_date": "2026-09-21",
+        "figures": [
+          "$2/scfm",
+          "$3/gallon above 2 gallons per scfm",
+          "$2/scfm",
+          "$0.15/kWh annual energy savings",
+          "$100 each",
+          "$6/hp",
+          "70% of energy efficiency project costs"
+        ],
+        "max": "70% of energy efficiency project costs",
+        "methodology": "Per-measure incentives are paid on the printed unit basis (per scfm, per gallon above 2 gallons/scfm, per hp, or per drain); VFD-controlled compressor and compressed air end use reduction measures are calculated at $0.15/kWh of annual energy savings. Total incentive is capped at 70% of project cost and cannot reduce simple payback below one year.",
+        "minp": "Low-pressure drop filter requires compressor system \u2265 25 hp and \u2264 75 hp, with discharge pressure setpoint reduced by 2 psi or more",
+        "notes": "System size \u2264 75 hp for most measures, not including backup compressor capacity that does not normally run; zero loss condensate drain and compressed air end use reduction have no compressor size restriction. Low-pressure drop filter: pressure loss \u2264 1 psi new and \u2264 3 psi at element change, 100% filtration at \u2265 3.0 microns and 99.98% at 0.1\u20133.0 microns, \u2264 5 ppm liquid carryover, deep-bed mist eliminator style with element life \u2265 5 years, rated capacity \u2264 500 scfm. Receiver addition: total capacity after addition must be > 2 gallons per scfm of trim compressor capacity; trim compressor must use load/unload control; VFD or variable displacement trim compressors not eligible. Cycling dryer: rated capacity \u2264 500 scfm, must operate exclusively in cycling mode, refrigeration compressor must cycle off during reduced demand. VFD compressor must be \u2264 75 hp oil-injected screw and adjust speed as primary means of capacity control. Outside air intake ductwork must meet manufacturer's specifications (e.g., \u2264 0.25\" W.C. pressure loss at rated flow). Zero loss condensate drains purchased as an integral part of another measure are eligible. Energy savings and project costs subject to approval by Rocky Mountain Power.",
+        "rate": "Low-pressure drop filter: $2/scfm. Receiver capacity addition: $3/gallon above 2 gallons per scfm. Cycling refrigerated dryer: $2/scfm. VFD-controlled compressor: $0.15/kWh annual energy savings. Zero loss condensate drain: $100 each. Outside air intake (ductwork): $6/hp. Compressed air end use reduction: $0.15/kWh annual energy savings.",
+        "tiers": "",
+        "value": "$0.15/kWh of annual energy savings"
+      },
+      "fingerprint": "cl:75238",
+      "model": "claude-opus-5",
+      "reason": "agreed across 2 passes; 5 $ amounts",
+      "samples": 2,
+      "source_doc": "https://www.rockymountainpower.net/content/dam/pcorp/documents/en/rockymountainpower/savings-energy-choices/wattsmart-business/utah/UT_Wattsmart_Business_Compressed_Air_Incentives.pdf"
+    },
     "rmp:express-lighting-retrofit-prescriptive-per-watt-installed": {
       "confidence": "pass",
       "date": "2026-10-06",
@@ -163,6 +193,41 @@
       "samples": 2,
       "source_doc": "https://www.rockymountainpower.net/content/dam/pcorp/documents/en/rockymountainpower/savings-energy-choices/wattsmart-business/utah/UT_Wattsmart_Business_Express_Lighting_Retrofits_Incentives.pdf"
     },
+    "rmp:farm-dairy-equipment": {
+      "confidence": "pass",
+      "date": "2026-10-07",
+      "fields": {
+        "baseline": "Equipment must meet or exceed the listed minimum efficiency requirements: circulating fans 12/15/20/24.5 lbf/kW by size tier; ventilation fans 11/14/17/21 cfm/W by size tier. Fan performance must be rated by an independent testing body per ANSI/AMCA standards.",
+        "cap": "Incentives capped at 70% of energy efficiency project costs; incentives will not reduce project simple payback below one year",
+        "effective_date": "2026-09-21",
+        "figures": [
+          "$25/fan",
+          "$35/fan",
+          "$50/fan",
+          "$75/fan",
+          "$0.15/kWh annual energy savings",
+          "$45/fan",
+          "$75/fan",
+          "$125/fan",
+          "$150/fan",
+          "$20/fan controlled",
+          "$165/hp",
+          "70% of energy efficiency project costs"
+        ],
+        "max": "70% of energy efficiency project costs",
+        "methodology": "Prescriptive per-unit incentives are paid per fan, per fan controlled, or per horsepower; heat recovery and milk pre-cooler incentives are calculated as $0.15 multiplied by the annual kWh energy savings. Total incentive is capped at 70% of project cost and limited so simple payback is not reduced below one year.",
+        "minp": "",
+        "notes": "Equipment meeting or exceeding the listed efficiency requirements may qualify. Fan performance must be rated by an independent testing body per ANSI/AMCA standards. Energy savings and project costs subject to approval by Rocky Mountain Power. Except where noted, equipment is eligible in both new construction and retrofit projects; Milk Pre-Cooler and Dairy Vacuum Pump VFDs are retrofit only (new construction and replacement of existing VFD not eligible). Heat recovery unit must use heat rejected from the milk cooling refrigeration system to heat water and the customer must use electricity for water heating.",
+        "rate": "High-Efficiency Circulating Fan: $25/fan (12-23\" diameter, \u226512 lbf/kW), $35/fan (24-35\", \u226515 lbf/kW), $50/fan (36-47\", \u226520 lbf/kW), $75/fan (\u226548\", \u226524.5 lbf/kW). Heat Recovery: $0.15/kWh annual energy savings. High Efficiency Ventilation Fan: $45/fan (12-23\", \u226511 cfm/W), $75/fan (24-35\", \u226514 cfm/W), $125/fan (36-47\", \u226517 cfm/W), $150/fan (\u226548\", \u226521 cfm/W). Milk Pre-Cooler (retrofit only): $0.15/kWh annual energy savings. Programmable Ventilation Controllers: $20/fan controlled. Variable Frequency Drives for Dairy Vacuum Pumps (retrofit only): $165/hp.",
+        "tiers": "Circulating fans by diameter: 12-23\" = $25/fan; 24-35\" = $35/fan; 36-47\" = $50/fan; \u226548\" = $75/fan. Ventilation fans by diameter: 12-23\" = $45/fan; 24-35\" = $75/fan; 36-47\" = $125/fan; \u226548\" = $150/fan.",
+        "value": "$0.15/kWh of annual energy savings (heat recovery & milk pre-cooler); $25\u2013$150/fan"
+      },
+      "fingerprint": "cl:49621",
+      "model": "claude-opus-5",
+      "reason": "agreed across 2 passes; 10 $ amounts",
+      "samples": 2,
+      "source_doc": "https://www.rockymountainpower.net/content/dam/pcorp/documents/en/rockymountainpower/savings-energy-choices/wattsmart-business/utah/UT_Wattsmart_Business_Farm_Dairy_Equipment_Incentives.pdf"
+    },
     "rmp:hvac-heat-pump": {
       "confidence": "pass",
       "date": "2026-10-06",
@@ -195,6 +260,44 @@
       "samples": 2,
       "source_doc": "https://www.rockymountainpower.net/content/dam/pcorp/documents/en/rockymountainpower/savings-energy-choices/wattsmart-business/utah/UT_wattsmart_Business_HVAC_Equipment_Incentives.pdf"
     },
+    "rmp:irrigation-sprinklers-nozzles-pump-vfd": {
+      "confidence": "pass",
+      "date": "2026-10-07",
+      "fields": {
+        "baseline": "Retrofit replacement of existing worn, leaking or malfunctioning equipment; new sprinkler/nozzle/regulator must be of the same design flow or less (flow rate shall not be increased); rebuilt sprinklers shall meet or exceed manufacturer's specifications. Pump VFD measured against annual kWh savings subject to Rocky Mountain Power approval.",
+        "cap": "Portable systems: incentive limited to two sprinklers per irrigated acre; two nozzles per irrigated acre; two gaskets per irrigated acre; two drains per irrigated acre. Pump VFD: capped at 70% of energy efficiency costs and may not reduce project simple payback below one year.",
+        "effective_date": "2026-09-21",
+        "figures": [
+          "$0.50 each",
+          "$0.50 each",
+          "$1.50 each",
+          "$2 each",
+          "$2 each",
+          "$8/repair",
+          "$1 each",
+          "$7/Drop",
+          "$4/Drop",
+          "$2/Drop",
+          "$7/Drop",
+          "$7/Drop",
+          "$5/Drop",
+          "$0.15/kWh annual savings",
+          "70% of energy efficiency costs"
+        ],
+        "max": "Irrigation pump VFD incentives capped at 70% of energy efficiency costs",
+        "methodology": "Hardware measures pay a flat dollar amount per replaced unit (per sprinkler, nozzle, gasket, drain, leveler, repair, or per drop on pivots/linears), subject to per-irrigated-acre count limits. Irrigation pump VFD pays $0.15 per kWh of annual energy savings, capped at 70% of energy efficiency costs and limited so simple payback is not reduced below one year.",
+        "minp": "",
+        "notes": "Equipment that meets or exceeds the listed requirements may qualify. Except for the pump VFD measure, incentives are available only for retrofit projects where new equipment replaces existing equipment (new construction not eligible). Fixed-in-place (solid set) systems are not eligible for the portable-system measures. All nozzles on the wheel line or hand line must be replaced. For rebuilds, invoice must show number of rebuild kits purchased and installed. Irrigation equipment incentives are only available for systems served by an electric pump (not diesel or gravity-pressurized line). Sprinkler package for pivots/linears includes a regulator, where applicable. Energy savings and project costs subject to Rocky Mountain Power approval. Utah program.",
+        "rate": "Wheel line, hand line or other portable systems (retrofit only): new rotating sprinkler replacing worn or leaking impact/rotating sprinkler \u2014 $0.50 each; new or rebuilt impact sprinkler replacing worn or leaking impact sprinkler \u2014 $0.50 each; new nozzle replacing worn nozzle of same design flow or less \u2014 $1.50 each; new gasket replacing leaking gasket (including main line valve or section gasket, seal or riser cap/dome disk) \u2014 $2 each; new drain replacing leaking drain \u2014 $2 each; cut and press or weld repair of leaking wheel line, hand line or portable main line \u2014 $8/repair; new or rebuilt wheel line leveler replacing leaking or malfunctioning leveler \u2014 $1 each. Pivots and linear systems (retrofit only): Replacement \u2013 High Pressure \u2014 $7/Drop; Replacement \u2013 MESA (Mid-Elevation Spray Application) \u2014 $4/Drop; Replacement \u2013 LESA/LEPA/MDI (Low Elevation Spray or Precision Application) \u2014 $2/Drop; Upgrade \u2013 High Pressure to MESA \u2014 $7/Drop; Upgrade \u2013 High Pressure to LESA/LEPA/MDI \u2014 $7/Drop; Upgrade \u2013 MESA to LESA/LEPA/MDI \u2014 $5/Drop. Any type of system (retrofit or new construction, including non-agricultural irrigation): irrigation pump VFD added to existing or new irrigation pump \u2014 $0.15/kWh annual savings.",
+        "tiers": "Pivot/linear drop incentives by application type: High Pressure replacement $7/Drop; MESA replacement $4/Drop; LESA/LEPA/MDI replacement $2/Drop; High Pressure to MESA upgrade $7/Drop; High Pressure to LESA/LEPA/MDI upgrade $7/Drop; MESA to LESA/LEPA/MDI upgrade $5/Drop",
+        "value": "$0.15/kWh annual savings (irrigation pump VFD); sprinkler/nozzle hardware incentives $0.50\u2013$8 each"
+      },
+      "fingerprint": "cl:74910",
+      "model": "claude-opus-5",
+      "reason": "agreed across 2 passes; 9 $ amounts",
+      "samples": 2,
+      "source_doc": "https://www.rockymountainpower.net/content/dam/pcorp/documents/en/rockymountainpower/savings-energy-choices/wattsmart-business/utah/UT_Wattsmart_Business_Water_Distribution_Irrigation_Incentives.pdf"
+    },
     "rmp:motors-vfds-pumps-fans": {
       "confidence": "pass",
       "date": "2026-10-06",
@@ -219,6 +322,85 @@
       "reason": "agreed across 2 passes; 2 $ amounts",
       "samples": 2,
       "source_doc": "https://www.rockymountainpower.net/content/dam/pcorp/documents/en/rockymountainpower/savings-energy-choices/wattsmart-business/utah/UT_Wattsmart_Business_Motors_Incentives.pdf"
+    },
+    "rmp:oil-gas-field-efficiency": {
+      "confidence": "pass",
+      "date": "2026-10-07",
+      "fields": {
+        "baseline": "Existing oil or gas well without a pump off controller; equipment must meet or exceed the stated efficiency requirements",
+        "cap": "$1,500 per controller",
+        "effective_date": "2026-09-21",
+        "figures": [
+          "$1,500 per controller",
+          "70%"
+        ],
+        "max": "70% of energy efficiency project costs",
+        "methodology": "Flat per-unit incentive of $1,500 for each pump off controller added to an existing oil or gas well, capped at 70% of energy efficiency project costs and limited so the project simple payback is not reduced below one year.",
+        "minp": "",
+        "notes": "Equipment that meets or exceeds the efficiency requirements may qualify for the listed incentive. Incentives are capped at 70% of energy efficiency project costs and will not be available to reduce the energy efficiency project simple payback below one year. Energy savings and energy efficiency project costs are subject to Rocky Mountain Power approval.",
+        "rate": "$1,500 per controller for adding a pump off controller to an existing oil or gas well.",
+        "tiers": "",
+        "value": "$1,500 per controller"
+      },
+      "fingerprint": "cl:43119",
+      "model": "claude-opus-5",
+      "reason": "agreed across 2 passes; 1 $ amounts",
+      "samples": 2,
+      "source_doc": "https://www.rockymountainpower.net/content/dam/pcorp/documents/en/rockymountainpower/savings-energy-choices/wattsmart-business/utah/UT_Wattsmart_Business_Oil_Gas_Incentives.pdf"
+    },
+    "rmp:vfd-air-compressor-75-hp": {
+      "confidence": "pass",
+      "date": "2026-10-07",
+      "fields": {
+        "baseline": "Replacement of a fixed speed compressor with a \u2264 75 hp VFD-controlled oil-injected screw compressor operating in a system with total compressor capacity \u2264 75 hp, not counting backup compressor capacity",
+        "cap": "Incentives capped at 70% of energy efficiency project costs; incentives will not be available to reduce project simple payback below one year.",
+        "effective_date": "2026-09-21",
+        "figures": [
+          "$0.15/kWh",
+          "$2/scfm",
+          "$3/gallon above 2 gallons per scfm",
+          "$100 each",
+          "$6/hp",
+          "70% of energy efficiency project costs"
+        ],
+        "max": "70% of energy efficiency project costs",
+        "methodology": "Incentive paid at $0.15 per kWh of annual energy savings for the VFD-controlled compressor measure, with energy savings and project costs subject to approval by Rocky Mountain Power.",
+        "minp": "",
+        "notes": "Compressor must adjust speed as primary means of capacity control; total compressor capacity in upgraded system must be \u2264 75 hp, not counting backup compressor. Except for zero loss condensate drain and compressed air end use reduction measures, eligibility is limited to systems with total compressor capacity of 75 hp or less, not including backup capacity that does not normally run. Equipment that meets or exceeds the efficiency requirements may qualify.",
+        "rate": "VFD Controlled Compressor: $0.15/kWh annual energy savings. Other compressed air measures on the same sheet: Low-Pressure Drop Filter $2/scfm; Receiver Capacity Addition $3/gallon above 2 gallons per scfm; Cycling Refrigerated Dryer $2/scfm; Zero Loss Condensate Drain $100 each; Outside Air Intake $6/hp; Compressed air end use reduction $0.15/kWh annual energy savings.",
+        "tiers": "",
+        "value": "$0.15/kWh of annual energy savings"
+      },
+      "fingerprint": "cl:75238",
+      "model": "claude-opus-5",
+      "reason": "agreed across 2 passes; 5 $ amounts",
+      "samples": 2,
+      "source_doc": "https://www.rockymountainpower.net/content/dam/pcorp/documents/en/rockymountainpower/savings-energy-choices/wattsmart-business/utah/UT_Wattsmart_Business_Compressed_Air_Incentives.pdf"
+    },
+    "rmp:wastewater-other-refrigeration": {
+      "confidence": "pass",
+      "date": "2026-10-07",
+      "fields": {
+        "baseline": "Existing equipment being replaced: conventional refrigeration controls (defrost timeclock, space thermostat, evaporator fan control, thermal expansion valve); manually operated door, automatic door with long cycle time, strip curtain, or entryway with no door in refrigerated/conditioned space; excess aeration capacity.",
+        "cap": "Incentives capped at 70% of energy efficiency project costs",
+        "effective_date": "2026-09-21",
+        "figures": [
+          "$0.15/kWh annual energy savings",
+          "70%"
+        ],
+        "max": "70% of energy efficiency project costs",
+        "methodology": "Incentive equals $0.15 multiplied by the annual kWh energy savings of the qualifying measure, then limited to 70% of the energy efficiency project cost and to a project simple payback of not less than one year.",
+        "minp": "Incentives will not be available to reduce the energy efficiency project simple payback below one year",
+        "notes": "Equipment that meets or exceeds the efficiency requirements may qualify for the listed incentive. Energy savings and energy efficiency project costs are subject to Rocky Mountain Power approval. Utah.",
+        "rate": "$0.15/kWh annual energy savings for adaptive refrigeration control (replacing conventional controls such as defrost timeclock, space thermostat, evaporator fan control, thermal expansion valve, with an adaptive refrigeration controller and, in some instances, an electric expansion valve); $0.15/kWh annual energy savings for a fast acting door (replacing a manually operated door, automatic door with long cycle time, strip curtain, or entryway with no door in refrigerated/conditioned space); $0.15/kWh annual energy savings for wastewater low power mixer (replacing excess aeration capacity with an extended range circulator or low power mixer).",
+        "tiers": "",
+        "value": "$0.15/kWh of annual energy savings"
+      },
+      "fingerprint": "cl:44729",
+      "model": "claude-opus-5",
+      "reason": "agreed across 2 passes; 1 $ amounts",
+      "samples": 2,
+      "source_doc": "https://www.rockymountainpower.net/content/dam/pcorp/documents/en/rockymountainpower/savings-energy-choices/wattsmart-business/utah/UT_Wattsmart_Business_WasteWaterRefrigeration_Incentives.pdf"
     }
   }
 }
